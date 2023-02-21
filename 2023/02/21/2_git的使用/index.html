@@ -1,109 +1,146 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
+
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>
+    Hexo
+  </title>
+  <meta name="description" content="">
+  
+  <meta name="keywords" content="
+  
+  ">
+  
+  <meta name="author" content="John Doe">
+
+  <meta http-equiv="Cache-Control" content="no-transform"/>
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="theme-color" content="#1e2327">
+  <link rel="apple-touch-icon" href="https://github.githubassets.com/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://github.githubassets.com/apple-touch-icon-180x180.png">
+
+  <link rel="icon" type="image/x-icon" href="https://github.githubassets.com/favicon.ico">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   
 
   
-  <title>Hexo</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="git精简实用1.Git常用命令(查询用)设置用户签名的用户名1git config --global user.name 用户名   设置用户签名的邮箱1git config --global user.email 邮箱   初始化本地库1git init   查看本地库状态1git status   添加到暂存区1git add 文件名   提交到本地库1git commit -m &amp;quot">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/2023/02/21/2_git%E7%9A%84%E4%BD%BF%E7%94%A8/index.html">
-<meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="git精简实用1.Git常用命令(查询用)设置用户签名的用户名1git config --global user.name 用户名   设置用户签名的邮箱1git config --global user.email 邮箱   初始化本地库1git init   查看本地库状态1git status   添加到暂存区1git add 文件名   提交到本地库1git commit -m &amp;quot">
-<meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2023/02/21/2_git%E7%9A%84%E4%BD%BF%E7%94%A8/img/image-20211008175707566.png">
-<meta property="og:image" content="http://example.com/2023/02/21/2_git%E7%9A%84%E4%BD%BF%E7%94%A8/img/image-20211008182911643.png">
-<meta property="og:image" content="http://example.com/2023/02/21/2_git%E7%9A%84%E4%BD%BF%E7%94%A8/img/image-20211008200431436.png">
-<meta property="og:image" content="http://example.com/2023/02/21/2_git%E7%9A%84%E4%BD%BF%E7%94%A8/img/image-20211008234504600.png">
-<meta property="og:image" content="http://example.com/2023/02/21/2_git%E7%9A%84%E4%BD%BF%E7%94%A8/img/image-20211008201341246.png">
-<meta property="og:image" content="http://example.com/2023/02/21/2_git%E7%9A%84%E4%BD%BF%E7%94%A8/img/image-20211009002113432.png">
-<meta property="og:image" content="http://example.com/2023/02/21/2_git%E7%9A%84%E4%BD%BF%E7%94%A8/img/image-20211009002158338.png">
-<meta property="og:image" content="http://example.com/2023/02/21/2_git%E7%9A%84%E4%BD%BF%E7%94%A8/img/image-20211009004327115.png">
-<meta property="og:image" content="http://example.com/2023/02/21/2_git%E7%9A%84%E4%BD%BF%E7%94%A8/img/image-20211009004502515.png">
-<meta property="og:image" content="http://example.com/2023/02/21/2_git%E7%9A%84%E4%BD%BF%E7%94%A8/img/image-20211009005042779.png">
-<meta property="og:image" content="http://example.com/2023/02/21/2_git%E7%9A%84%E4%BD%BF%E7%94%A8/img/image-20211009005515138.png">
-<meta property="og:image" content="http://example.com/2023/02/21/2_git%E7%9A%84%E4%BD%BF%E7%94%A8/img/image-20211009005817429.png">
-<meta property="og:image" content="http://example.com/2023/02/21/2_git%E7%9A%84%E4%BD%BF%E7%94%A8/img/image-20211009010437635.png">
-<meta property="og:image" content="http://example.com/2023/02/21/2_git%E7%9A%84%E4%BD%BF%E7%94%A8/img/image-20211009010913838.png">
-<meta property="og:image" content="http://example.com/2023/02/21/2_git%E7%9A%84%E4%BD%BF%E7%94%A8/img/image-20211011101658873.png">
-<meta property="og:image" content="http://example.com/2023/02/21/2_git%E7%9A%84%E4%BD%BF%E7%94%A8/img/image-20211011102743699.png">
-<meta property="og:image" content="http://example.com/2023/02/21/2_git%E7%9A%84%E4%BD%BF%E7%94%A8/img/image-20211011104728625.png">
-<meta property="og:image" content="http://example.com/2023/02/21/2_git%E7%9A%84%E4%BD%BF%E7%94%A8/img/image-20211011105918558.png">
-<meta property="og:image" content="http://example.com/2023/02/21/2_git%E7%9A%84%E4%BD%BF%E7%94%A8/img/image-20211011105300142.png">
-<meta property="og:image" content="http://example.com/2023/02/21/2_git%E7%9A%84%E4%BD%BF%E7%94%A8/img/image-20211012150220244.png">
-<meta property="og:image" content="http://example.com/2023/02/21/2_git%E7%9A%84%E4%BD%BF%E7%94%A8/img/image-20211012150321081.png">
-<meta property="og:image" content="http://example.com/2023/02/21/2_git%E7%9A%84%E4%BD%BF%E7%94%A8/img/image-20211012150455826.png">
-<meta property="og:image" content="http://example.com/2023/02/21/2_git%E7%9A%84%E4%BD%BF%E7%94%A8/img/image-20211012150519728.png">
-<meta property="og:image" content="http://example.com/2023/02/21/2_git%E7%9A%84%E4%BD%BF%E7%94%A8/img/image-20211014105844992.png">
-<meta property="article:published_time" content="2023-02-21T13:26:07.242Z">
-<meta property="article:modified_time" content="2023-02-17T13:01:03.414Z">
-<meta property="article:author" content="John Doe">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2023/02/21/2_git%E7%9A%84%E4%BD%BF%E7%94%A8/img/image-20211008175707566.png">
-  
-    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  
-<link rel="stylesheet" href="/css/style.css">
 
+  <script src="//cdnjs.cloudflare.com/ajax/libs/vue/1.0.25-csp/vue.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
 <meta name="generator" content="Hexo 5.4.2"></head>
 
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Hexo</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+<body id="replica-app">
+
+<nav class="navbar-wrapper">
+  <div class="navbar">
+    <div class="container clearfix">
+      <a href="/" class="navbar-logo"><i class="fa fa-github"></i></a>
+
+      <div class="navbar-search float-left desktop-only">
+        <div class="navbar-search-form">
+          <label for="gsc-i-id1">This website</label>
+          <div id="google-search">
+            <gcse:search></gcse:search>
+          </div>
+        </div>
       </div>
+
+      <ul class="navbar-nav float-left">
+        
+        <li><a href="/">Archives</a></li>
+        
+        
+        <li><a href="/">Categories</a></li>
+        
+        
+        <li><a href="/">Tags</a></li>
+        
+        
+        <li class="desktop-only"><a href="/atom.xml" target="_blank">RSS</a></li>
+        
+      </ul>
+
+      <ul class="navbar-nav user-nav float-right desktop-only">
+        <li class="user-nav-notification">
+          <a><span class="user-nav-unread"></span><i class="fa fa-bell"></i></a>
+        </li>
+        <li>
+          <a><i class="fa fa-plus"></i> <i class="fa fa-caret-down"></i></a>
+        </li>
+        <li class="user-nav-logo">
+          <a><img src="https://octodex.github.com/images/baracktocat.jpg"> <i class="fa fa-caret-down"></i></i></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="main-container">
+  <header class="header-wrapper desktop-only">
+  <div class="container header-site-detail">
+    <ul class="header-toolbar">
+      <li class="clearfix">
+        <a href="/" class="header-toolbar-left"><i
+                  class="fa fa-file-text"></i> Posts </a>
+        <a href="/"
+           class="header-toolbar-right"> 3 </a>
+      </li>
+      <li>
+        <a href="/" class="header-toolbar-left"><i
+                  class="fa fa-tags"></i> Tags </a>
+        <a href="/"
+           class="header-toolbar-right"> 0 </a>
+      </li>
+      <li>
+        <a href="/" class="header-toolbar-left"><i
+                  class="fa fa-folder-open"></i> Categories </a>
+        <a href="/"
+           class="header-toolbar-right"> 0 </a>
+      </li>
+    </ul>
+    <h2 class="header-title">
+      <i class="fa fa-book text-muted"></i>
+      <a href="/">Hexo</a>
+      
+      
+    </h2>
+  </div>
+
+  <div class="container">
+    <div class="header-tab-wrapper clearfix">
+      <span class="header-tab header-tab-selected"><i class="fa fa-thumbs-o-up"></i> Like</span>
+      <span class="header-tab"><i class="fa fa-share-alt"></i> Share</span>
+      <span class="header-tab"><i class="fa fa-comments-o"></i> Discussion</span>
+      <span class="header-tab"><i class="fa fa-bookmark-o"></i> Bookmark </span>
+      <span class="header-tab"><i class="fa fa-smile-o"></i> Smile <i class="fa fa-caret-down"></i></span>
     </div>
   </div>
 </header>
-      <div class="outer">
-        <section id="main"><article id="post-2_git的使用" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2023/02/21/2_git%E7%9A%84%E4%BD%BF%E7%94%A8/" class="article-date">
-  <time datetime="2023-02-21T13:26:07.242Z" itemprop="datePublished">2023-02-21</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
+
+
+<div class="post-container container">
+  <h3>
+    <i class="fa fa-user-o"></i>
+    John Doe
+
+    <span class="post-date float-right" title="{{moment(1676985967242).format('MMM DD, YYYY, h:mm:ss A')}}">
       
-        <h1 id="git精简实用"><a href="#git精简实用" class="headerlink" title="git精简实用"></a>git精简实用</h1><h2 id="1-Git常用命令-查询用"><a href="#1-Git常用命令-查询用" class="headerlink" title="1.Git常用命令(查询用)"></a>1.Git常用命令(查询用)</h2><h6 id="设置用户签名的用户名"><a href="#设置用户签名的用户名" class="headerlink" title="设置用户签名的用户名"></a>设置用户签名的用户名</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name 用户名 </span><br></pre></td></tr></table></figure>
+          <i class="fa fa-pencil-square-o"></i>
+      
+      {{moment(1676985967242).fromNow()}}
+    </span>
+  </h3>
+
+  <article class="post-content">
+    <h1>Untitle</h1>
+    <h1 id="git精简实用"><a href="#git精简实用" class="headerlink" title="git精简实用"></a>git精简实用</h1><h2 id="1-Git常用命令-查询用"><a href="#1-Git常用命令-查询用" class="headerlink" title="1.Git常用命令(查询用)"></a>1.Git常用命令(查询用)</h2><h6 id="设置用户签名的用户名"><a href="#设置用户签名的用户名" class="headerlink" title="设置用户签名的用户名"></a>设置用户签名的用户名</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name 用户名 </span><br></pre></td></tr></table></figure>
 
 <h6 id="设置用户签名的邮箱"><a href="#设置用户签名的邮箱" class="headerlink" title="设置用户签名的邮箱"></a>设置用户签名的邮箱</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.email 邮箱 </span><br></pre></td></tr></table></figure>
 
@@ -138,8 +175,8 @@
 
 <p>注意： 合并分支 要在主分支上操作  把分支上的代码 合并到主分支</p>
 <p>账号：</p>
-<p><a href="mailto:&#x72;&#x65;&#x6c;&#101;&#x6e;&#116;&#108;&#x65;&#x73;&#115;&#x5f;&#x6d;&#97;&#115;&#x74;&#101;&#114;&#x40;&#49;&#x36;&#x33;&#46;&#99;&#x6f;&#109;">&#x72;&#x65;&#x6c;&#101;&#x6e;&#116;&#108;&#x65;&#x73;&#115;&#x5f;&#x6d;&#97;&#115;&#x74;&#101;&#114;&#x40;&#49;&#x36;&#x33;&#46;&#99;&#x6f;&#109;</a> 张三</p>
-<p><a href="mailto:&#x72;&#x65;&#x6c;&#x65;&#110;&#116;&#x6c;&#x65;&#115;&#x73;&#x5f;&#109;&#x61;&#115;&#116;&#101;&#114;&#64;&#x79;&#x65;&#x61;&#x68;&#46;&#x6e;&#x65;&#116;">&#x72;&#x65;&#x6c;&#x65;&#110;&#116;&#x6c;&#x65;&#115;&#x73;&#x5f;&#109;&#x61;&#115;&#116;&#101;&#114;&#64;&#x79;&#x65;&#x61;&#x68;&#46;&#x6e;&#x65;&#116;</a> 主管</p>
+<p><a href="mailto:&#x72;&#x65;&#x6c;&#x65;&#x6e;&#x74;&#x6c;&#x65;&#115;&#x73;&#95;&#109;&#x61;&#115;&#x74;&#101;&#x72;&#x40;&#49;&#54;&#51;&#x2e;&#99;&#x6f;&#109;">&#x72;&#x65;&#x6c;&#x65;&#x6e;&#x74;&#x6c;&#x65;&#115;&#x73;&#95;&#109;&#x61;&#115;&#x74;&#101;&#x72;&#x40;&#49;&#54;&#51;&#x2e;&#99;&#x6f;&#109;</a> 张三</p>
+<p><a href="mailto:&#114;&#x65;&#x6c;&#101;&#x6e;&#116;&#x6c;&#x65;&#x73;&#115;&#x5f;&#x6d;&#97;&#115;&#116;&#x65;&#114;&#64;&#x79;&#101;&#97;&#x68;&#x2e;&#x6e;&#x65;&#x74;">&#114;&#x65;&#x6c;&#101;&#x6e;&#116;&#x6c;&#x65;&#x73;&#115;&#x5f;&#x6d;&#97;&#115;&#116;&#x65;&#114;&#64;&#x79;&#101;&#97;&#x68;&#x2e;&#x6e;&#x65;&#x74;</a> 主管</p>
 <h2 id="2-创建远程仓库"><a href="#2-创建远程仓库" class="headerlink" title="2.创建远程仓库"></a>2.创建远程仓库</h2><p>主管(项目经理)登录gitee,创建远程仓库</p>
 <p><img src="img/image-20211008175707566.png"></p>
 <h2 id="3-本地仓库推送到远程仓库"><a href="#3-本地仓库推送到远程仓库" class="headerlink" title="3.本地仓库推送到远程仓库"></a>3.本地仓库推送到远程仓库</h2><h3 id="1-关于-gitignore-文件"><a href="#1-关于-gitignore-文件" class="headerlink" title="1.关于.gitignore 文件"></a>1.关于.gitignore 文件</h3><h4 id="1-springboot脚手架自动生成-gitignore"><a href="#1-springboot脚手架自动生成-gitignore" class="headerlink" title="1.springboot脚手架自动生成.gitignore"></a>1.springboot脚手架自动生成.gitignore</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">HELP.md</span><br><span class="line">target/</span><br><span class="line">!.mvn/wrapper/maven-wrapper.jar</span><br><span class="line">!**/src/main/**/target/</span><br><span class="line">!**/src/test/**/target/</span><br><span class="line"></span><br><span class="line">### STS ###</span><br><span class="line">.apt_generated</span><br><span class="line">.classpath</span><br><span class="line">.factorypath</span><br><span class="line">.project</span><br><span class="line">.settings</span><br><span class="line">.springBeans</span><br><span class="line">.sts4-cache</span><br><span class="line"></span><br><span class="line">### IntelliJ IDEA ###</span><br><span class="line">.idea</span><br><span class="line">*.iws</span><br><span class="line">*.iml</span><br><span class="line">*.ipr</span><br><span class="line"></span><br><span class="line">### NetBeans ###</span><br><span class="line">/nbproject/private/</span><br><span class="line">/nbbuild/</span><br><span class="line">/dist/</span><br><span class="line">/nbdist/</span><br><span class="line">/.nb-gradle/</span><br><span class="line">build/</span><br><span class="line">!**/src/main/**/build/</span><br><span class="line">!**/src/test/**/build/</span><br><span class="line"></span><br><span class="line">### VS Code ###</span><br><span class="line">.vscode/</span><br><span class="line"></span><br></pre></td></tr></table></figure>
@@ -200,16 +237,16 @@
 <p>失败了:因为zs这个人不是团队内成员</p>
 <p><img src="img/image-20211009002158338.png" alt="image-20211009002158338"></p>
 <h4 id="5-团队内合作"><a href="#5-团队内合作" class="headerlink" title="5.团队内合作"></a>5.团队内合作</h4><p>主管邀请新成员加入团队</p>
-<p><a href="mailto:&#x72;&#101;&#x6c;&#101;&#x6e;&#x74;&#108;&#x65;&#115;&#x73;&#x5f;&#109;&#x61;&#x73;&#x74;&#101;&#114;&#64;&#x79;&#x65;&#x61;&#x68;&#46;&#x6e;&#x65;&#x74;">&#x72;&#101;&#x6c;&#101;&#x6e;&#x74;&#108;&#x65;&#115;&#x73;&#x5f;&#109;&#x61;&#x73;&#x74;&#101;&#114;&#64;&#x79;&#x65;&#x61;&#x68;&#46;&#x6e;&#x65;&#x74;</a>    登录以后去邀请</p>
+<p><a href="mailto:&#114;&#101;&#108;&#101;&#110;&#x74;&#108;&#x65;&#115;&#x73;&#x5f;&#x6d;&#x61;&#x73;&#x74;&#x65;&#x72;&#x40;&#121;&#101;&#x61;&#104;&#x2e;&#x6e;&#101;&#x74;">&#114;&#101;&#108;&#101;&#110;&#x74;&#108;&#x65;&#115;&#x73;&#x5f;&#x6d;&#x61;&#x73;&#x74;&#x65;&#x72;&#x40;&#121;&#101;&#x61;&#104;&#x2e;&#x6e;&#101;&#x74;</a>    登录以后去邀请</p>
 <p>三种方式:(了解)</p>
 <p><a target="_blank" rel="noopener" href="https://gitee.com/help/articles/4175#article-header0">添加成员 - Gitee.com</a> </p>
 <p><img src="img/image-20211009004327115.png"></p>
 <p><img src="img/image-20211009004502515.png" alt="image-20211009004502515"></p>
 <p>新成员登录gitee </p>
-<p><a href="mailto:&#x72;&#101;&#x6c;&#101;&#110;&#116;&#108;&#x65;&#x73;&#115;&#x5f;&#x6d;&#97;&#115;&#116;&#x65;&#114;&#64;&#x31;&#54;&#x33;&#x2e;&#x63;&#111;&#x6d;">&#x72;&#101;&#x6c;&#101;&#110;&#116;&#108;&#x65;&#x73;&#115;&#x5f;&#x6d;&#97;&#115;&#116;&#x65;&#114;&#64;&#x31;&#54;&#x33;&#x2e;&#x63;&#111;&#x6d;</a>  zs 登录 </p>
+<p><a href="mailto:&#x72;&#101;&#108;&#101;&#110;&#x74;&#108;&#x65;&#x73;&#115;&#x5f;&#109;&#97;&#115;&#116;&#x65;&#114;&#x40;&#49;&#54;&#x33;&#46;&#x63;&#111;&#x6d;">&#x72;&#101;&#108;&#101;&#110;&#x74;&#108;&#x65;&#x73;&#115;&#x5f;&#109;&#97;&#115;&#116;&#x65;&#114;&#x40;&#49;&#54;&#x33;&#46;&#x63;&#111;&#x6d;</a>  zs 登录 </p>
 <p><img src="img/image-20211009005042779.png" alt="image-20211009005042779"></p>
 <p>主管登录审核:</p>
-<p><a href="mailto:&#114;&#x65;&#x6c;&#x65;&#110;&#x74;&#108;&#x65;&#x73;&#115;&#95;&#109;&#x61;&#x73;&#116;&#101;&#114;&#64;&#x79;&#x65;&#97;&#x68;&#46;&#x6e;&#x65;&#x74;">&#114;&#x65;&#x6c;&#x65;&#110;&#x74;&#108;&#x65;&#x73;&#115;&#95;&#109;&#x61;&#x73;&#116;&#101;&#114;&#64;&#x79;&#x65;&#97;&#x68;&#46;&#x6e;&#x65;&#x74;</a>   主管</p>
+<p><a href="mailto:&#x72;&#101;&#108;&#x65;&#110;&#x74;&#x6c;&#101;&#115;&#x73;&#95;&#109;&#x61;&#x73;&#x74;&#101;&#114;&#x40;&#x79;&#x65;&#x61;&#x68;&#46;&#110;&#x65;&#116;">&#x72;&#101;&#108;&#x65;&#110;&#x74;&#x6c;&#101;&#115;&#x73;&#95;&#109;&#x61;&#x73;&#x74;&#101;&#114;&#x40;&#x79;&#x65;&#x61;&#x68;&#46;&#110;&#x65;&#116;</a>   主管</p>
 <p><img src="img/image-20211009005515138.png" alt="image-20211009005515138"></p>
 <p>再次推送</p>
 <p><img src="img/image-20211009005817429.png" alt="image-20211009005817429"></p>
@@ -341,122 +378,41 @@
 <p>git 常用命令:</p>
 <p><a target="_blank" rel="noopener" href="https://zjhylove.github.io/2021/05/13/%E5%BC%80%E5%8F%91%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E6%95%B4%E7%90%86/">开发常用命令整理 - 因为遇见你，我才知道我也能拥有美丽的记忆！ (zjhylove.github.io)</a></p>
 <h4 id=""><a href="#" class="headerlink" title=""></a></h4>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2023/02/21/2_git%E7%9A%84%E4%BD%BF%E7%94%A8/" data-id="cleea5k000002q8vx685g934s" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
+  </article>
+</div>
+
+
     
-<nav id="article-nav">
-  
-    <a href="/2023/02/21/3_adguard/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          (no title)
-        
-      </div>
+
+
+
+
+</div>
+
+<div class="footer-wrapper container">
+  <footer class="footer clearfix">
+    <div class="clearfix">
+    <a href="http://example.com" class="footer-logo">
+      <i class="fa fa-github"></i>
     </a>
-  
-  
-    <a href="/2023/02/21/1_security%E5%92%8Cgit%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title"></div>
-    </a>
-  
-</nav>
-
-  
-</article>
-
-</section>
-        
-          <aside id="sidebar">
-  
-    
-
-  
-    
-
-  
-    
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a></li></ul>
+    <ul class="footer-social-link">
+      <li>© 2019 John Doe</li>
+      <li><a href="http://example.com">Home</a></li>
+      
+    </ul>
+    <div class="footer-theme-info">
+      Theme <a target="_blank" rel="noopener" href="//github.com/sabrinaluo/hexo-theme-replica">Replica</a>
+      by <a target="_blank" rel="noopener" href="//github.com/sabrinaluo">Hiitea</a> ❤ Powered by Hexo
     </div>
-  </div>
-
-
-  
+    </div>
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2023/02/21/3_adguard/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2023/02/21/2_git%E7%9A%84%E4%BD%BF%E7%94%A8/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2023/02/21/1_security%E5%92%8Cgit%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C/">(no title)</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2023 John Doe<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-
-  
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-
-  
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
+  </footer>
+</div>
 
 
 
 
-<script src="/js/script.js"></script>
+<script src="/js/main.js"></script>
 
-
-
-
-  </div>
 </body>
 </html>

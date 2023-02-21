@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="git精简实用1.Git常用命令(查询用)设置用户签名的用户名1git config --global user.name 用户名   设置用户签名的邮箱1git config --global user.email 邮箱   初始化本地库1git init   查看本地库状态1git status   添加到暂存区1git add 文件名   提交到本地库1git commit -m &amp;quot">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/2023/02/21/2_git%E7%9A%84%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="git精简实用1.Git常用命令(查询用)设置用户签名的用户名1git config --global user.name 用户名   设置用户签名的邮箱1git config --global user.email 邮箱   初始化本地库1git init   查看本地库状态1git status   添加到暂存区1git add 文件名   提交到本地库1git commit -m &amp;quot">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2023/02/21/2_git%E7%9A%84%E4%BD%BF%E7%94%A8/img/image-20211008175707566.png">
+<meta property="og:image" content="http://example.com/2023/02/21/2_git%E7%9A%84%E4%BD%BF%E7%94%A8/img/image-20211008182911643.png">
+<meta property="og:image" content="http://example.com/2023/02/21/2_git%E7%9A%84%E4%BD%BF%E7%94%A8/img/image-20211008200431436.png">
+<meta property="og:image" content="http://example.com/2023/02/21/2_git%E7%9A%84%E4%BD%BF%E7%94%A8/img/image-20211008234504600.png">
+<meta property="og:image" content="http://example.com/2023/02/21/2_git%E7%9A%84%E4%BD%BF%E7%94%A8/img/image-20211008201341246.png">
+<meta property="og:image" content="http://example.com/2023/02/21/2_git%E7%9A%84%E4%BD%BF%E7%94%A8/img/image-20211009002113432.png">
+<meta property="og:image" content="http://example.com/2023/02/21/2_git%E7%9A%84%E4%BD%BF%E7%94%A8/img/image-20211009002158338.png">
+<meta property="og:image" content="http://example.com/2023/02/21/2_git%E7%9A%84%E4%BD%BF%E7%94%A8/img/image-20211009004327115.png">
+<meta property="og:image" content="http://example.com/2023/02/21/2_git%E7%9A%84%E4%BD%BF%E7%94%A8/img/image-20211009004502515.png">
+<meta property="og:image" content="http://example.com/2023/02/21/2_git%E7%9A%84%E4%BD%BF%E7%94%A8/img/image-20211009005042779.png">
+<meta property="og:image" content="http://example.com/2023/02/21/2_git%E7%9A%84%E4%BD%BF%E7%94%A8/img/image-20211009005515138.png">
+<meta property="og:image" content="http://example.com/2023/02/21/2_git%E7%9A%84%E4%BD%BF%E7%94%A8/img/image-20211009005817429.png">
+<meta property="og:image" content="http://example.com/2023/02/21/2_git%E7%9A%84%E4%BD%BF%E7%94%A8/img/image-20211009010437635.png">
+<meta property="og:image" content="http://example.com/2023/02/21/2_git%E7%9A%84%E4%BD%BF%E7%94%A8/img/image-20211009010913838.png">
+<meta property="og:image" content="http://example.com/2023/02/21/2_git%E7%9A%84%E4%BD%BF%E7%94%A8/img/image-20211011101658873.png">
+<meta property="og:image" content="http://example.com/2023/02/21/2_git%E7%9A%84%E4%BD%BF%E7%94%A8/img/image-20211011102743699.png">
+<meta property="og:image" content="http://example.com/2023/02/21/2_git%E7%9A%84%E4%BD%BF%E7%94%A8/img/image-20211011104728625.png">
+<meta property="og:image" content="http://example.com/2023/02/21/2_git%E7%9A%84%E4%BD%BF%E7%94%A8/img/image-20211011105918558.png">
+<meta property="og:image" content="http://example.com/2023/02/21/2_git%E7%9A%84%E4%BD%BF%E7%94%A8/img/image-20211011105300142.png">
+<meta property="og:image" content="http://example.com/2023/02/21/2_git%E7%9A%84%E4%BD%BF%E7%94%A8/img/image-20211012150220244.png">
+<meta property="og:image" content="http://example.com/2023/02/21/2_git%E7%9A%84%E4%BD%BF%E7%94%A8/img/image-20211012150321081.png">
+<meta property="og:image" content="http://example.com/2023/02/21/2_git%E7%9A%84%E4%BD%BF%E7%94%A8/img/image-20211012150455826.png">
+<meta property="og:image" content="http://example.com/2023/02/21/2_git%E7%9A%84%E4%BD%BF%E7%94%A8/img/image-20211012150519728.png">
+<meta property="og:image" content="http://example.com/2023/02/21/2_git%E7%9A%84%E4%BD%BF%E7%94%A8/img/image-20211014105844992.png">
+<meta property="article:published_time" content="2023-02-21T13:26:07.242Z">
+<meta property="article:modified_time" content="2023-02-17T13:01:03.414Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2023/02/21/2_git%E7%9A%84%E4%BD%BF%E7%94%A8/img/image-20211008175707566.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-2_git的使用" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2023/02/21/2_git%E7%9A%84%E4%BD%BF%E7%94%A8/" class="article-date">
+  <time datetime="2023-02-21T13:26:07.242Z" itemprop="datePublished">2023-02-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="git精简实用"><a href="#git精简实用" class="headerlink" title="git精简实用"></a>git精简实用</h1><h2 id="1-Git常用命令-查询用"><a href="#1-Git常用命令-查询用" class="headerlink" title="1.Git常用命令(查询用)"></a>1.Git常用命令(查询用)</h2><h6 id="设置用户签名的用户名"><a href="#设置用户签名的用户名" class="headerlink" title="设置用户签名的用户名"></a>设置用户签名的用户名</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name 用户名 </span><br></pre></td></tr></table></figure>
+
+<h6 id="设置用户签名的邮箱"><a href="#设置用户签名的邮箱" class="headerlink" title="设置用户签名的邮箱"></a>设置用户签名的邮箱</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.email 邮箱 </span><br></pre></td></tr></table></figure>
+
+<h6 id="初始化本地库"><a href="#初始化本地库" class="headerlink" title="初始化本地库"></a>初始化本地库</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git init </span><br></pre></td></tr></table></figure>
+
+<h6 id="查看本地库状态"><a href="#查看本地库状态" class="headerlink" title="查看本地库状态"></a>查看本地库状态</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git status </span><br></pre></td></tr></table></figure>
+
+<h6 id="添加到暂存区"><a href="#添加到暂存区" class="headerlink" title="添加到暂存区"></a>添加到暂存区</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add 文件名 </span><br></pre></td></tr></table></figure>
+
+<h6 id="提交到本地库"><a href="#提交到本地库" class="headerlink" title="提交到本地库"></a>提交到本地库</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m &quot;日志信息&quot; 文件名 </span><br></pre></td></tr></table></figure>
+
+<h6 id="查看历史记录"><a href="#查看历史记录" class="headerlink" title="查看历史记录"></a>查看历史记录</h6><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reflog 或者 git log --oneline</span><br></pre></td></tr></table></figure>
+
+<h6 id="版本穿梭"><a href="#版本穿梭" class="headerlink" title="版本穿梭"></a>版本穿梭</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard 版本号</span><br></pre></td></tr></table></figure>
+
+<h6 id="创建分支"><a href="#创建分支" class="headerlink" title="创建分支"></a>创建分支</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch 分支名</span><br></pre></td></tr></table></figure>
+
+
+
+<h6 id="进入（切换）分支"><a href="#进入（切换）分支" class="headerlink" title="进入（切换）分支"></a>进入（切换）分支</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout 分支名 </span><br></pre></td></tr></table></figure>
+
+<h6 id="创建并且直接进入"><a href="#创建并且直接进入" class="headerlink" title="创建并且直接进入"></a>创建并且直接进入</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b 分支名</span><br></pre></td></tr></table></figure>
+
+<h6 id="查看分支"><a href="#查看分支" class="headerlink" title="查看分支"></a>查看分支</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch   </span><br></pre></td></tr></table></figure>
+
+<p>注意： 当前分支有个 * </p>
+<h6 id="删除分支"><a href="#删除分支" class="headerlink" title="删除分支"></a>删除分支</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -d 分支名</span><br></pre></td></tr></table></figure>
+
+<p>注意：不能在当前分支 删除当前分支 </p>
+<p>注意：不要删除主分支</p>
+<h6 id="分支合并"><a href="#分支合并" class="headerlink" title="分支合并"></a>分支合并</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git merge 分支名</span><br></pre></td></tr></table></figure>
+
+<p>注意： 合并分支 要在主分支上操作  把分支上的代码 合并到主分支</p>
+<p>账号：</p>
+<p><a href="mailto:&#x72;&#x65;&#x6c;&#101;&#x6e;&#116;&#108;&#x65;&#x73;&#115;&#x5f;&#x6d;&#97;&#115;&#x74;&#101;&#114;&#x40;&#49;&#x36;&#x33;&#46;&#99;&#x6f;&#109;">&#x72;&#x65;&#x6c;&#101;&#x6e;&#116;&#108;&#x65;&#x73;&#115;&#x5f;&#x6d;&#97;&#115;&#x74;&#101;&#114;&#x40;&#49;&#x36;&#x33;&#46;&#99;&#x6f;&#109;</a> 张三</p>
+<p><a href="mailto:&#x72;&#x65;&#x6c;&#x65;&#110;&#116;&#x6c;&#x65;&#115;&#x73;&#x5f;&#109;&#x61;&#115;&#116;&#101;&#114;&#64;&#x79;&#x65;&#x61;&#x68;&#46;&#x6e;&#x65;&#116;">&#x72;&#x65;&#x6c;&#x65;&#110;&#116;&#x6c;&#x65;&#115;&#x73;&#x5f;&#109;&#x61;&#115;&#116;&#101;&#114;&#64;&#x79;&#x65;&#x61;&#x68;&#46;&#x6e;&#x65;&#116;</a> 主管</p>
+<h2 id="2-创建远程仓库"><a href="#2-创建远程仓库" class="headerlink" title="2.创建远程仓库"></a>2.创建远程仓库</h2><p>主管(项目经理)登录gitee,创建远程仓库</p>
+<p><img src="img/image-20211008175707566.png"></p>
+<h2 id="3-本地仓库推送到远程仓库"><a href="#3-本地仓库推送到远程仓库" class="headerlink" title="3.本地仓库推送到远程仓库"></a>3.本地仓库推送到远程仓库</h2><h3 id="1-关于-gitignore-文件"><a href="#1-关于-gitignore-文件" class="headerlink" title="1.关于.gitignore 文件"></a>1.关于.gitignore 文件</h3><h4 id="1-springboot脚手架自动生成-gitignore"><a href="#1-springboot脚手架自动生成-gitignore" class="headerlink" title="1.springboot脚手架自动生成.gitignore"></a>1.springboot脚手架自动生成.gitignore</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">HELP.md</span><br><span class="line">target/</span><br><span class="line">!.mvn/wrapper/maven-wrapper.jar</span><br><span class="line">!**/src/main/**/target/</span><br><span class="line">!**/src/test/**/target/</span><br><span class="line"></span><br><span class="line">### STS ###</span><br><span class="line">.apt_generated</span><br><span class="line">.classpath</span><br><span class="line">.factorypath</span><br><span class="line">.project</span><br><span class="line">.settings</span><br><span class="line">.springBeans</span><br><span class="line">.sts4-cache</span><br><span class="line"></span><br><span class="line">### IntelliJ IDEA ###</span><br><span class="line">.idea</span><br><span class="line">*.iws</span><br><span class="line">*.iml</span><br><span class="line">*.ipr</span><br><span class="line"></span><br><span class="line">### NetBeans ###</span><br><span class="line">/nbproject/private/</span><br><span class="line">/nbbuild/</span><br><span class="line">/dist/</span><br><span class="line">/nbdist/</span><br><span class="line">/.nb-gradle/</span><br><span class="line">build/</span><br><span class="line">!**/src/main/**/build/</span><br><span class="line">!**/src/test/**/build/</span><br><span class="line"></span><br><span class="line">### VS Code ###</span><br><span class="line">.vscode/</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="2-其他版本-gitignore文件-了解"><a href="#2-其他版本-gitignore文件-了解" class="headerlink" title="2.其他版本.gitignore文件(了解)"></a>2.其他版本.gitignore文件(了解)</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"># Log file</span><br><span class="line">*.log</span><br><span class="line"># BlueJ files</span><br><span class="line">*.ctxt</span><br><span class="line"># Mobile Tools for Java (J2ME)</span><br><span class="line">.mtj.tmp/</span><br><span class="line"># Package Files #</span><br><span class="line">*.jar</span><br><span class="line">*.war</span><br><span class="line">*.nar</span><br><span class="line">*.ear</span><br><span class="line">*.zip</span><br><span class="line">*.tar.gz</span><br><span class="line">*.rar</span><br><span class="line"># virtual machine crash logs, see </span><br><span class="line">http://www.java.com/en/download/help/error_hotspot.xml</span><br><span class="line">hs_err_pid*</span><br><span class="line">.classpath</span><br><span class="line">.project</span><br><span class="line">.settings</span><br><span class="line">target</span><br><span class="line">.idea</span><br><span class="line">*.iml</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-创建本地仓库将项目交给git管理"><a href="#2-创建本地仓库将项目交给git管理" class="headerlink" title="2.创建本地仓库将项目交给git管理"></a>2.创建本地仓库将项目交给git管理</h3><p>模拟主管(项目经理)搭建基础架构,创建本地仓库并且推送到远程仓库</p>
+<p>第一:新建文件夹manager</p>
+<p>第二:把项目复制到manager文件夹下   :  这里以spring-mybatis项目为例</p>
+<p>第三:进入spring-mybatis文件夹下执行如下命令:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;manager first commit init project&quot;</span><br></pre></td></tr></table></figure>
+
+<p>此时,本地仓库有了master分支</p>
+<h3 id="3-本地仓库加入远程仓库"><a href="#3-本地仓库加入远程仓库" class="headerlink" title="3.本地仓库加入远程仓库"></a>3.本地仓库加入远程仓库</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin <span class="attr">https</span>:<span class="comment">//gitee.com/relentless-master/spring.git</span></span><br></pre></td></tr></table></figure>
+
+<p>此时,远程仓库别名是 origin(可以自定义) </p>
+<h3 id="4-将本地仓库项目推送到远程仓库"><a href="#4-将本地仓库项目推送到远程仓库" class="headerlink" title="4.将本地仓库项目推送到远程仓库"></a>4.将本地仓库项目推送到远程仓库</h3><p>默认将本地master 分支提交到了远程仓库的master分支</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure>
+
+<p><img src="img/image-20211008182911643.png" alt="image-20211008182911643"></p>
+<h2 id="4-操作远程仓库命令-查询用"><a href="#4-操作远程仓库命令-查询用" class="headerlink" title="4.操作远程仓库命令(查询用)"></a>4.操作远程仓库命令(查询用)</h2><h6 id="查看当前所有远程地址别名"><a href="#查看当前所有远程地址别名" class="headerlink" title="查看当前所有远程地址别名"></a>查看当前所有远程地址别名</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote -v </span><br></pre></td></tr></table></figure>
+
+<h6 id="起别名"><a href="#起别名" class="headerlink" title="起别名"></a>起别名</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add 别名 远程地址 </span><br></pre></td></tr></table></figure>
+
+<h6 id="推送本地分支上的内容到远程仓库分支"><a href="#推送本地分支上的内容到远程仓库分支" class="headerlink" title="推送本地分支上的内容到远程仓库分支"></a>推送本地分支上的内容到远程仓库分支</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push 别名 分支 </span><br></pre></td></tr></table></figure>
+
+<h6 id="将远程仓库的内容克隆到本地"><a href="#将远程仓库的内容克隆到本地" class="headerlink" title="将远程仓库的内容克隆到本地"></a>将远程仓库的内容克隆到本地</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone 远程地址 </span><br></pre></td></tr></table></figure>
+
+<h6 id="将远程仓库对于分支最新内容拉下来后与当前本地分支直接合并"><a href="#将远程仓库对于分支最新内容拉下来后与当前本地分支直接合并" class="headerlink" title="将远程仓库对于分支最新内容拉下来后与当前本地分支直接合并"></a>将远程仓库对于分支最新内容拉下来后与当前本地分支直接合并</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git pull 远程库地址别名 远程分支名 </span><br></pre></td></tr></table></figure>
+
+<h2 id="5-分支的补充说明"><a href="#5-分支的补充说明" class="headerlink" title="5.分支的补充说明"></a>5.分支的补充说明</h2><p>本地仓库有自己的分支,远程仓库有自己的分支.两者一一对应</p>
+<h2 id="6-新入职人员加入开发团队-process-on流程"><a href="#6-新入职人员加入开发团队-process-on流程" class="headerlink" title="6.新入职人员加入开发团队(process on流程)"></a>6.新入职人员加入开发团队(process on流程)</h2><h3 id="1-远程仓库新建开发-dev-分支"><a href="#1-远程仓库新建开发-dev-分支" class="headerlink" title="1.远程仓库新建开发(dev)分支"></a>1.远程仓库新建开发(dev)分支</h3><p>实际开发过程这个dev已经存在,除非是新项目</p>
+<p><img src="img/image-20211008200431436.png" alt="image-20211008200431436"></p>
+<h3 id="2-克隆到本地"><a href="#2-克隆到本地" class="headerlink" title="2.克隆到本地"></a>2.克隆到本地</h3><h4 id="1-zs要登录gitee"><a href="#1-zs要登录gitee" class="headerlink" title="1.zs要登录gitee"></a>1.zs要登录gitee</h4><p>注意:</p>
+<p><img src="img/image-20211008234504600.png" alt="image-20211008234504600"></p>
+<h4 id="2-新建zs文件夹-在里面打开git-banch-输入命令"><a href="#2-新建zs文件夹-在里面打开git-banch-输入命令" class="headerlink" title="2.新建zs文件夹,在里面打开git banch,输入命令:"></a>2.新建zs文件夹,在里面打开git banch,输入命令:</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://gitee.com/relentless-master/spring.git</span><br></pre></td></tr></table></figure>
+
+<p><img src="img/image-20211008201341246.png" alt="image-20211008201341246"></p>
+<p>执行git clone 命令以后 :</p>
+<p>1、拉取代码</p>
+<p>2、本地仓库初始化:默认创建了本地主分支(名字默认是master)</p>
+<p>3、远程仓库起别名:  远程仓库地址别名 (名字默认是 origin)</p>
+<p>4、远程仓库创建主分支:(名字默认master)</p>
+<p>5.将本地仓库分支master与远程仓库master关联了起来(可以将本地仓库master分支提交的代码push到远程仓库master分支上)</p>
+<p>这样才可以执行推送到远程仓库master分支的命令    git push origin master</p>
+<h4 id="2-进入zs下的spring-项目-文件夹-打开git-banch-输入命令"><a href="#2-进入zs下的spring-项目-文件夹-打开git-banch-输入命令" class="headerlink" title="2.进入zs下的spring(项目)文件夹,打开git banch,输入命令:"></a>2.进入zs下的spring(项目)文件夹,打开git banch,输入命令:</h4><p>查看本地仓库与远程仓库相关联的信息</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote -v</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-添加一个文件zs-txt"><a href="#3-添加一个文件zs-txt" class="headerlink" title="3.添加一个文件zs.txt"></a>3.添加一个文件zs.txt</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git status</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m &quot;zs first commit&quot;</span><br></pre></td></tr></table></figure>
+
+<h4 id="4-推送到retentless-master的远程仓库"><a href="#4-推送到retentless-master的远程仓库" class="headerlink" title="4.推送到retentless_master的远程仓库"></a>4.推送到retentless_master的远程仓库</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
+
+<p><img src="img/image-20211009002113432.png" alt="image-20211009002113432"></p>
+<p>失败了:因为zs这个人不是团队内成员</p>
+<p><img src="img/image-20211009002158338.png" alt="image-20211009002158338"></p>
+<h4 id="5-团队内合作"><a href="#5-团队内合作" class="headerlink" title="5.团队内合作"></a>5.团队内合作</h4><p>主管邀请新成员加入团队</p>
+<p><a href="mailto:&#x72;&#101;&#x6c;&#101;&#x6e;&#x74;&#108;&#x65;&#115;&#x73;&#x5f;&#109;&#x61;&#x73;&#x74;&#101;&#114;&#64;&#x79;&#x65;&#x61;&#x68;&#46;&#x6e;&#x65;&#x74;">&#x72;&#101;&#x6c;&#101;&#x6e;&#x74;&#108;&#x65;&#115;&#x73;&#x5f;&#109;&#x61;&#x73;&#x74;&#101;&#114;&#64;&#x79;&#x65;&#x61;&#x68;&#46;&#x6e;&#x65;&#x74;</a>    登录以后去邀请</p>
+<p>三种方式:(了解)</p>
+<p><a target="_blank" rel="noopener" href="https://gitee.com/help/articles/4175#article-header0">添加成员 - Gitee.com</a> </p>
+<p><img src="img/image-20211009004327115.png"></p>
+<p><img src="img/image-20211009004502515.png" alt="image-20211009004502515"></p>
+<p>新成员登录gitee </p>
+<p><a href="mailto:&#x72;&#101;&#x6c;&#101;&#110;&#116;&#108;&#x65;&#x73;&#115;&#x5f;&#x6d;&#97;&#115;&#116;&#x65;&#114;&#64;&#x31;&#54;&#x33;&#x2e;&#x63;&#111;&#x6d;">&#x72;&#101;&#x6c;&#101;&#110;&#116;&#108;&#x65;&#x73;&#115;&#x5f;&#x6d;&#97;&#115;&#116;&#x65;&#114;&#64;&#x31;&#54;&#x33;&#x2e;&#x63;&#111;&#x6d;</a>  zs 登录 </p>
+<p><img src="img/image-20211009005042779.png" alt="image-20211009005042779"></p>
+<p>主管登录审核:</p>
+<p><a href="mailto:&#114;&#x65;&#x6c;&#x65;&#110;&#x74;&#108;&#x65;&#x73;&#115;&#95;&#109;&#x61;&#x73;&#116;&#101;&#114;&#64;&#x79;&#x65;&#97;&#x68;&#46;&#x6e;&#x65;&#x74;">&#114;&#x65;&#x6c;&#x65;&#110;&#x74;&#108;&#x65;&#x73;&#115;&#95;&#109;&#x61;&#x73;&#116;&#101;&#114;&#64;&#x79;&#x65;&#97;&#x68;&#46;&#x6e;&#x65;&#x74;</a>   主管</p>
+<p><img src="img/image-20211009005515138.png" alt="image-20211009005515138"></p>
+<p>再次推送</p>
+<p><img src="img/image-20211009005817429.png" alt="image-20211009005817429"></p>
+<p>主管拉取远程仓库zs提交的代码到本地仓库</p>
+<p>模拟时,删除凭据</p>
+<p><img src="img/image-20211009010437635.png" alt="image-20211009010437635"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git  pull origin master</span><br></pre></td></tr></table></figure>
+
+<p><img src="img/image-20211009010913838.png" alt="image-20211009010913838"></p>
+<h4 id="6-线上出问题-图示演示"><a href="#6-线上出问题-图示演示" class="headerlink" title="6.线上出问题(图示演示)"></a>6.线上出问题(图示演示)</h4><p>场景master分支切出一个hotfix分支,修复完成,rebase到master分支</p>
+<p>本地仓库分支 与远程仓库分支详细介绍</p>
+<table>
+<thead>
+<tr>
+<th>本地仓库</th>
+<th>远程仓库/分支</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>master</td>
+<td>origin/master</td>
+<td>origin是git远程仓库地址的别名(默认) master是远程仓库的主分支(默认)</td>
+</tr>
+<tr>
+<td>dev</td>
+<td>dev</td>
+<td>远程仓库地址分支名(自定义)</td>
+</tr>
+<tr>
+<td>hotfix</td>
+<td>hotfix</td>
+<td>远程仓库地址分支名(自定义)</td>
+</tr>
+<tr>
+<td>feature1</td>
+<td>feature1</td>
+<td>远程仓库地址分支名(自定义)</td>
+</tr>
+<tr>
+<td>feature2</td>
+<td>feature2</td>
+<td>远程仓库地址分支名(自定义)</td>
+</tr>
+</tbody></table>
+<p>注意:</p>
+<p>​        本地仓库与远程仓库一一对应,想要推送到远程仓库不同的分支,必须要有本地仓库与之对应(比如: 想要推送到远程仓库 dev ,则必须创建本地仓库dev )</p>
+<p>查看本地仓库与远程仓库相关联的信息</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote  -v</span><br></pre></td></tr></table></figure>
+
+<p>第一:在本地仓库创建一个hotfix分支,并且关联到远程仓库的hotfix分支（切换到hotfix分支）</p>
+<p>新建一个hotfix文件夹,在hotfix文件夹下 打开gitbanch输入克隆命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://gitee.com/relentless-master/spring.git</span><br></pre></td></tr></table></figure>
+
+<p><img src="img/image-20211011101658873.png" alt="image-20211011101658873"></p>
+<p>第二:进出入拉取下来的spring项目的文件夹下,打开gitbanch输入命令</p>
+<p>创建远程仓库的hotfix分支</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add hostfix https://gitee.com/relentless-master/spring.git</span><br></pre></td></tr></table></figure>
+
+<p><img src="img/image-20211011102743699.png" alt="image-20211011102743699"></p>
+<p>第三:创建本地仓库的hotfix分支,并且进入,关联要推送的远程仓库分支hotfix</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b hotfix origin/hotfix</span><br></pre></td></tr></table></figure>
+
+<p>另一种方式:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b hotfix </span><br></pre></td></tr></table></figure>
+
+<p><img src="img/image-20211011104728625.png" alt="image-20211011104728625"></p>
+<p>第四:修改原来的zs提交的zs.txt文件</p>
+<p><img src="img/image-20211011105918558.png" alt="image-20211011105918558"></p>
+<p>第五:从本地仓库的hotfix分支推送到关联好的远程仓库的hotfix分支</p>
+<p>在hotfix分支上:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push</span><br></pre></td></tr></table></figure>
+
+<p>另一种方式:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin hotfix</span><br></pre></td></tr></table></figure>
+
+<p><img src="img/image-20211011105300142.png" alt="image-20211011105300142"></p>
+<p>第六:远程仓库hotfix分支rebase到远程仓库的master分支</p>
+<p>git rebase 命令</p>
+<p>没有冲突:</p>
+<p>在hotfix上:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout master</span><br></pre></td></tr></table></figure>
+
+<p>在master分支上:</p>
+<p>把hotfix分支rebase到master分支</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git rebase --onto hotfix master</span><br></pre></td></tr></table></figure>
+
+<p>有冲突:</p>
+<p>在mater分支上开发一个版本2.3</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git status</span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;master 2.3 模拟 有bug 版本&quot;</span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
+
+<p>在本地checkout一个分支hotfix1</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b hotfix1</span><br><span class="line">git remote add hotfix1  https://gitee.com/relentless-master/springboot.git</span><br><span class="line">git remote -v</span><br><span class="line">编写文件:将原来的master的2.3版本.txt修改完成</span><br><span class="line"></span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;hotfix1 修改了 master 的 2.3 bug&quot;</span><br><span class="line">git push origin hotfix1</span><br><span class="line"></span><br><span class="line">git checkout master</span><br><span class="line">git rebase --onto hotfix1 master</span><br><span class="line">git pull origin master</span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
+
+<p><img src="img/image-20211012150220244.png" alt="image-20211012150220244"></p>
+<p><img src="img/image-20211012150321081.png" alt="image-20211012150321081"></p>
+<p><img src="img/image-20211012150455826.png" alt="image-20211012150455826"></p>
+<p><img src="img/image-20211012150519728.png" alt="image-20211012150519728"></p>
+<h2 id="7-开发分支"><a href="#7-开发分支" class="headerlink" title="7.开发分支:"></a>7.开发分支:</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">git checkout dev</span><br><span class="line">git status</span><br><span class="line">git pull origin dev</span><br><span class="line"></span><br><span class="line">git status</span><br><span class="line">git add zs_dev.txt</span><br><span class="line">git commit -m &quot;zs_拉取了远程的dev的代码到本地dev分支,并开新建了zs_dev.txt文件 commit&quot;</span><br><span class="line"></span><br><span class="line">git pull origin dev</span><br><span class="line">git push origin dev</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>zs登录gitee,提交pull request |merge request</p>
+<p>manager 登录gitee 审核代码,通过pull request 请求 ,远程dev分合并到了远程仓库master分支上</p>
+<p>lisi入职,登录gitee,克隆master代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">git checkout dev</span><br><span class="line">git fetch origin dev</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;lisi_dev 提交了 代码&quot;</span><br><span class="line">git push origin dev</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>zs:提交代码之前,pull lisi 的代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">git status</span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;zs commit bofore pull lisi dev&quot;</span><br><span class="line"></span><br><span class="line">git pull origin dev</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="img/image-20211014105844992.png" alt="image-20211014105844992"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin dev</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="8-git命令相关扩展-了解"><a href="#8-git命令相关扩展-了解" class="headerlink" title="8.git命令相关扩展(了解)"></a>8.git命令相关扩展(了解)</h2><p>git fetch:</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/runnerjack/p/9342362.html">git fetch &amp; pull详解 - Runner_Jack - 博客园 (cnblogs.com)</a></p>
+<p>git stash :</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/zndxall/archive/2018/09/04/9586088.html">https://www.cnblogs.com/zndxall/archive/2018/09/04/9586088.html</a></p>
+<p>git rebase:</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/cangqinglang/p/12419568.html">git rebase 使用总结 - 苍青浪 - 博客园 (cnblogs.com)</a></p>
+<p>git merge:</p>
+<p>关于解决冲突:</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/quartz/p/12838935.html">git命令行解决冲突方法 - 山那边风景 - 博客园 (cnblogs.com)</a></p>
+<p>pull request 和 merge request:</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/azl397985856/article/details/106088794">(39条消息) Pull Request 与 Merge Request 的区别_azl397985856的专栏-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_31660535/article/details/107150627">(39条消息) Pull Request 与 Merge Request 的区别_Hi Siri-CSDN博客</a></p>
+<p>git stash:</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/sorasing/p/11975748.html">git stash 的两种应用场景 - SoraMuou - 博客园 (cnblogs.com)</a></p>
+<p><a target="_blank" rel="noopener" href="https://hanquan.blog.csdn.net/article/details/103362993?utm_medium=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~default-9.no_search_link&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~default-9.no_search_link">(39条消息) 【Git】git stash应用场景_寒泉-CSDN博客</a></p>
+<p>git 常用命令:</p>
+<p><a target="_blank" rel="noopener" href="https://zjhylove.github.io/2021/05/13/%E5%BC%80%E5%8F%91%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E6%95%B4%E7%90%86/">开发常用命令整理 - 因为遇见你，我才知道我也能拥有美丽的记忆！ (zjhylove.github.io)</a></p>
+<h4 id=""><a href="#" class="headerlink" title=""></a></h4>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/02/21/2_git%E7%9A%84%E4%BD%BF%E7%94%A8/" data-id="cleea5k000002q8vx685g934s" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/02/21/3_adguard/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/02/21/1_security%E5%92%8Cgit%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/02/21/3_adguard/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2023/02/21/2_git%E7%9A%84%E4%BD%BF%E7%94%A8/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2023/02/21/1_security%E5%92%8Cgit%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2023 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

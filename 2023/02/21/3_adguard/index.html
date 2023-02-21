@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="在Linux搭建AdguardHome全局去广告DNSSSH连接服务器，安装wget，已安装的可以忽略1yum install wget  安装AdGuardHome必备的依赖，不安装会导致后续报错1yum install sudo nano bind9-host  下载AdGuardHome二进制文件(根据处理器二选一)12wget https:&#x2F;&#x2F;static.adguard.com&#x2F;adgu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/2023/02/21/3_adguard/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="在Linux搭建AdguardHome全局去广告DNSSSH连接服务器，安装wget，已安装的可以忽略1yum install wget  安装AdGuardHome必备的依赖，不安装会导致后续报错1yum install sudo nano bind9-host  下载AdGuardHome二进制文件(根据处理器二选一)12wget https:&#x2F;&#x2F;static.adguard.com&#x2F;adgu">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-02-21T13:26:07.250Z">
+<meta property="article:modified_time" content="2023-02-19T11:11:19.666Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-3_adguard" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2023/02/21/3_adguard/" class="article-date">
+  <time datetime="2023-02-21T13:26:07.250Z" itemprop="datePublished">2023-02-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="在Linux搭建AdguardHome全局去广告DNS"><a href="#在Linux搭建AdguardHome全局去广告DNS" class="headerlink" title="在Linux搭建AdguardHome全局去广告DNS"></a>在Linux搭建AdguardHome全局去广告DNS</h1><h2 id="SSH连接服务器，安装wget，已安装的可以忽略"><a href="#SSH连接服务器，安装wget，已安装的可以忽略" class="headerlink" title="SSH连接服务器，安装wget，已安装的可以忽略"></a>SSH连接服务器，安装wget，已安装的可以忽略</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install wget</span><br></pre></td></tr></table></figure>
+
+<h2 id="安装AdGuardHome必备的依赖，不安装会导致后续报错"><a href="#安装AdGuardHome必备的依赖，不安装会导致后续报错" class="headerlink" title="安装AdGuardHome必备的依赖，不安装会导致后续报错"></a>安装AdGuardHome必备的依赖，不安装会导致后续报错</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install sudo nano bind9-host</span><br></pre></td></tr></table></figure>
+
+<h2 id="下载AdGuardHome二进制文件-根据处理器二选一"><a href="#下载AdGuardHome二进制文件-根据处理器二选一" class="headerlink" title="下载AdGuardHome二进制文件(根据处理器二选一)"></a>下载AdGuardHome二进制文件(根据处理器二选一)</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget https:<span class="comment">//static.adguard.com/adguardhome/release/AdGuardHome_linux_amd64.tar.gz</span></span><br><span class="line">wget https:<span class="comment">//static.adguard.com/adguardhome/release/AdGuardHome_linux_arm.tar.gz</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="解压并进入目录"><a href="#解压并进入目录" class="headerlink" title="解压并进入目录"></a>解压并进入目录</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tar xvf AdGuardHome_linux_arm.tar.gz</span><br><span class="line">cd AdGuardHome</span><br></pre></td></tr></table></figure>
+
+<h2 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./AdGuardHome -s install</span><br></pre></td></tr></table></figure>
+
+<p>命令</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#启动</span><br><span class="line">systemctl start AdGuardHome</span><br><span class="line">#开机自启</span><br><span class="line">systemctl enable AdGuardHome</span><br><span class="line">#重启</span><br><span class="line">systemctl restart AdGuardHome</span><br><span class="line">#停止</span><br><span class="line">systemctl stop AdGuardHome</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="其他可能用到的命令"><a href="#其他可能用到的命令" class="headerlink" title="其他可能用到的命令"></a>其他可能用到的命令</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">./AdGuardHome -s uninstall - 卸载 AdGuard Home 服务.</span><br><span class="line">./AdGuardHome -s start - 启动AdGuard Home服务.</span><br><span class="line">./AdGuardHome -s stop - 停止AdGuard Home服务.</span><br><span class="line">./AdGuardHome -s restart - 重启AdGuard Home服务.</span><br><span class="line">./AdGuardHome -s status - 显示当前服务状态.</span><br></pre></td></tr></table></figure>
+
+<h2 id="访问网络控制台"><a href="#访问网络控制台" class="headerlink" title="访问网络控制台"></a>访问网络控制台</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:<span class="comment">//localhost:3000/</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="常用设置"><a href="#常用设置" class="headerlink" title="常用设置"></a>常用设置</h1><h2 id="进入DNS封锁清单"><a href="#进入DNS封锁清单" class="headerlink" title="进入DNS封锁清单"></a>进入DNS封锁清单</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">https:<span class="comment">//adguardteam.github.io/AdGuardSDNSFilter/Filters/filter.txt</span></span><br><span class="line">https:<span class="comment">//cdn.jsdelivr.net/gh/o0HalfLife0o/list@master/ad.txt</span></span><br><span class="line">https:<span class="comment">//anti-ad.net/easylist.txt</span></span><br><span class="line">https:<span class="comment">//cdn.jsdelivr.net/gh/damengzhu/banad/jiekouAD.txt</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="DNS服务器推荐"><a href="#DNS服务器推荐" class="headerlink" title="DNS服务器推荐"></a>DNS服务器推荐</h2><blockquote>
+<ol>
+<li><p>复制下方DNS列表到在上游DNS服务器文本框</p>
+</li>
+<li><p>填写Bootstrap DNS 服务器列表</p>
+</li>
+<li><p>选择并行请求</p>
+</li>
+<li><p>应用</p>
+</li>
+<li><p>测试上游DNS</p>
+</li>
+<li><blockquote>
+<p>看到提示的指定的DNS测试通过就行了，不行的话再根据提示的某个服务器去掉就行了。例如提示1.1.1.1这个服务器不通过的话就在上面的DNS服务器文本框中去掉就行了。</p>
+</blockquote>
+</li>
+</ol>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tls:<span class="comment">//dns.pub</span></span><br><span class="line">https:<span class="comment">//dns.pub/dns-query</span></span><br><span class="line">tls:<span class="comment">//dns.alidns.com</span></span><br><span class="line">https:<span class="comment">//dns.alidns.com/dns-query</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Bootstrap-DNS-服务器列表"><a href="#Bootstrap-DNS-服务器列表" class="headerlink" title="Bootstrap DNS 服务器列表"></a>Bootstrap DNS 服务器列表</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">219.141</span><span class="number">.136</span><span class="number">.10</span>（北京电信）</span><br><span class="line"><span class="number">119.29</span><span class="number">.29</span><span class="number">.29</span></span><br><span class="line"><span class="number">119.28</span><span class="number">.28</span><span class="number">.28</span></span><br><span class="line"><span class="number">223.5</span><span class="number">.5</span><span class="number">.5</span></span><br><span class="line"><span class="number">223.6</span><span class="number">.6</span><span class="number">.6</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="docker版安装"><a href="#docker版安装" class="headerlink" title="docker版安装"></a>docker版安装</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">docker run -d \</span><br><span class="line">    --name adguardhome \</span><br><span class="line">    -v $PWD/adguardhome/work:/opt/adguardhome/work \</span><br><span class="line">    -v $PWD/adguardhome/conf:/opt/adguardhome/conf \</span><br><span class="line">    -p <span class="number">53</span>:<span class="number">53</span>/tcp \</span><br><span class="line">    -p <span class="number">53</span>:<span class="number">53</span>/udp \</span><br><span class="line">    -p <span class="number">67</span>:<span class="number">67</span>/udp \</span><br><span class="line">    -p <span class="number">68</span>:<span class="number">68</span>/tcp \</span><br><span class="line">    -p <span class="number">68</span>:<span class="number">68</span>/udp \</span><br><span class="line">    -p <span class="number">80</span>:<span class="number">80</span>/tcp \</span><br><span class="line">    -p <span class="number">443</span>:<span class="number">443</span>/tcp \</span><br><span class="line">    -p <span class="number">853</span>:<span class="number">853</span>/tcp \</span><br><span class="line">    -p <span class="number">3333</span>:<span class="number">3000</span>/tcp \</span><br><span class="line">    adguard/adguardhome</span><br></pre></td></tr></table></figure>
+
+
+
+<p><a target="_blank" rel="noopener" href="https://hub.docker.com/r/adguard/adguardhome">广告卫士/广告卫士主页 - 码头工人图片 |码头工人中心 (docker.com)</a></p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/AdguardTeam/AdGuardHome/releases">Releases · AdguardTeam/AdGuardHome (github.com)</a></p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/02/21/3_adguard/" data-id="cleea5jzw0001q8vxhkcze8s2" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2023/02/21/2_git%E7%9A%84%E4%BD%BF%E7%94%A8/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/02/21/3_adguard/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2023/02/21/2_git%E7%9A%84%E4%BD%BF%E7%94%A8/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2023/02/21/1_security%E5%92%8Cgit%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2023 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

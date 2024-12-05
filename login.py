@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # login.py
-# author: github/svjdck & github.com/icepage/AutoUpdateJdCookie & 小九九 t.me/gdot0 & zhaozg
+# author: github/svjdck & github.com/icepage/AutoUpdateJdCookie & 小九九
+# t.me/gdot0 & zhaozg
 
 import os
 from pyppeteer import launch
@@ -50,10 +51,13 @@ async def deleteSessionDelay(workList, uid):
     if s:
         await asyncio.sleep(15)
         del workList[uid]
+
+
 async def deleteSession(workList, uid):
     s = workList.get(uid, "")
     if s:
         del workList[uid]
+
 
 async def loginPhone(chromium_path, workList, uid, headless):
     # 判断账号密码错误
@@ -88,7 +92,7 @@ async def loginPhone(chromium_path, workList, uid, headless):
     # 判断验证码超时
     async def needResendSMSCode(page):
         try:
-            return await page.querySelector('.getMsg-btn.text-btn.timer.active');
+            return await page.querySelector('.getMsg-btn.text-btn.timer.active')
         except Exception as e:
             print("needResendSMSCode " + str(e))
             return False
@@ -98,14 +102,14 @@ async def loginPhone(chromium_path, workList, uid, headless):
             title = await page.title()
             if title in ['手机语音验证', '手机短信验证']:
                 print('需要' + title)
-                return True  
+                return True
             return False
         except Exception as e:
             print("isSendSMSDirectly " + str(e))
             return False
 
     usernum = workList[uid].account
-    
+
     print(f"正在登录 {usernum} 的手机号")
 
     browser = await launch(
@@ -215,6 +219,8 @@ async def loginPhone(chromium_path, workList, uid, headless):
     print("任务完成退出")
     await browser.close()
     return
+
+
 async def loginPassword(chromium_path, workList, uid, headless):
     # 判断账号密码错误
     async def isWrongAccountOrPassword(page, verify=False):
@@ -271,7 +277,7 @@ async def loginPassword(chromium_path, workList, uid, headless):
             title = await page.title()
             if title in ['手机语音验证', '手机短信验证']:
                 print('需要' + title)
-                return True  
+                return True
             return False
         except Exception as e:
             print("isSendSMSDirectly " + str(e))
@@ -297,7 +303,7 @@ async def loginPassword(chromium_path, workList, uid, headless):
     )
     try:
         page = await browser.newPage()
-		await page.setUserAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36")
+        await page.setUserAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36")
         await page.setViewport({"width": 360, "height": 640})
         await page.goto(
             "https://plogin.m.jd.com/login/login"
@@ -339,7 +345,7 @@ async def loginPassword(chromium_path, workList, uid, headless):
                     await page.waitFor(3000)
                 elif await page.xpath('//*[@id="captcha_modal"]/div/div[3]/button'):
                     print("进入点形状、颜色验证分支")
-                    
+
                     workList[uid].status = "pending"
                     workList[uid].msg = "正在过形状、颜色检测"
                     if await verification_shape(page) == "notSupport":
@@ -415,25 +421,28 @@ async def loginPassword(chromium_path, workList, uid, headless):
         await browser.close()
         await deleteSessionDelay(workList, uid)
         raise e
-        
+
     print("任务完成退出")
 
     await browser.close()
     return
+
 
 async def typephoneuser(page, usernum):
     await page.waitFor(random.randint(200, 500))
     tel_input = await page.waitForSelector('input[type="tel"]')
     await tel_input.click()
     await tel_input.type(usernum)
-    #await page.type(
+    # await page.type(
     #    "input[type='tel']", usernum, {"delay": random.randint(50,100)}
-    #)
+    # )
     await page.waitFor(random.randint(200, 500))
     await page.click(".policy_tip-checkbox")
     await page.waitFor(random.randint(200, 500))
     await page.click(".getMsg-btn.text-btn.timer")
     await page.waitFor(random.randint(500, 1000))
+
+
 async def typeuser(page, usernum, passwd):
     print("开始输入账号密码")
     await page.waitForSelector(".J_ping.planBLogin")
@@ -525,6 +534,7 @@ async def sendSMS(page):
     except Exception as e:
         raise e
 
+
 async def typePhoneSMScode(page, workList, uid):
     print("开始输入验证码")
 
@@ -549,11 +559,10 @@ async def typePhoneSMScode(page, workList, uid):
     workList[uid].msg = "正在通过短信验证"
     authcode_input = await page.waitForSelector('#authcode')
     await authcode_input.type(code)
-    await page.waitFor(random.randint(100,300))
-    button = await page.waitForSelector('.btn.J_ping')  
+    await page.waitFor(random.randint(100, 300))
+    button = await page.waitForSelector('.btn.J_ping')
     await button.click()
     await page.waitFor(random.randint(2, 3) * 1000)
-
 
 
 async def typeSMScode(page, workList, uid):
@@ -677,7 +686,8 @@ async def verification_shape(page):
         def sort_rectangle_vertices(vertices):
             vertices = sorted(vertices, key=lambda x: x[1])
             top_left, top_right = sorted(vertices[:2], key=lambda x: x[0])
-            bottom_left, bottom_right = sorted(vertices[2:], key=lambda x: x[0])
+            bottom_left, bottom_right = sorted(
+                vertices[2:], key=lambda x: x[0])
             return [top_left, top_right, bottom_right, bottom_left]
 
         def is_trapezoid(vertices):
@@ -704,7 +714,8 @@ async def verification_shape(page):
                 if w == h:
                     obj_type = "正方形"
                 else:
-                    approx = sort_rectangle_vertices([vertex[0] for vertex in approx])
+                    approx = sort_rectangle_vertices(
+                        [vertex[0] for vertex in approx])
                     if is_trapezoid(approx):
                         obj_type = "梯形"
                     else:
@@ -733,7 +744,8 @@ async def verification_shape(page):
         upper = np.array(upper, dtype="uint8")
 
         mask = cv2.inRange(hsv_image, lower, upper)
-        contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        contours, _ = cv2.findContours(
+            mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
         for contour in contours:
             if cv2.contourArea(contour) > 100:
@@ -818,7 +830,6 @@ async def verification_shape(page):
         if refresh_button is None:
             refresh_button = await page.querySelector(".jcap_refresh")
 
-
         if word.find("色") > 0:
             target_color = word.split("请选出图中")[1].split("的图形")[0]
             if target_color in supported_colors:
@@ -864,7 +875,8 @@ async def verification_shape(page):
             words = []
             for row in xy_list:
                 [x1, y1, x2, y2] = row
-                corp = src_img.crop([x1 - 7 if x1 > 7 else x1, y1 - 7 if y1 > 7 else y1, x2 + 7, y2 + 7])
+                corp = src_img.crop(
+                    [x1 - 7 if x1 > 7 else x1, y1 - 7 if y1 > 7 else y1, x2 + 7, y2 + 7])
                 # 识别出单个字
                 result_word = ocr.classification(corp, png_fix=True)
                 words.append(result_word)
@@ -872,7 +884,8 @@ async def verification_shape(page):
             print(f"result: {result}")
             img_xy = {}
             for key, xy in result.items():
-                img_xy[key] = (int((xy[0] + xy[2]) / 2), int((xy[1] + xy[3]) / 2))
+                img_xy[key] = (int((xy[0] + xy[2]) / 2),
+                               int((xy[1] + xy[3]) / 2))
             not_found = False
             click_points = {}
             for wd in target_word:
@@ -1030,7 +1043,7 @@ async def main(workList, uid, oocr, oocrDet):
                 print("文件位于github，请耐心等待，如遇到网络问题可到项目地址手动下载")
                 download_url = "https://mirrors.huaweicloud.com/chromium-browser-snapshots/Linux_x64/884014/chrome-linux.zip"
                 if 'arm' in platform.machine():
-                    download_url = "https://playwright.azureedge.net/builds/chromium/1088/chromium-linux-arm64.zip";
+                    download_url = "https://playwright.azureedge.net/builds/chromium/1088/chromium-linux-arm64.zip"
                 if not os.path.exists(download_path):
                     os.makedirs(download_path, exist_ok=True)
                 target_file = os.path.join(
@@ -1049,17 +1062,17 @@ async def main(workList, uid, oocr, oocrDet):
     print("判断初始化浏览器")
     chromium_path = await init_chrome()
     headless = 'new'
-    #headless = False
+    # headless = False
     print("选择登录")
-    
+
     try_time = 1
     while True:
         if workList[uid].type == "phone":
             print("选择手机号登录")
             result = await loginPhone(chromium_path, workList, uid, headless)
         elif workList[uid].type == "password":
-	        print("选择密码登录")
-	        result = await loginPassword(chromium_path, workList, uid, headless)
+            print("选择密码登录")
+            result = await loginPassword(chromium_path, workList, uid, headless)
         if result != "notSupport" or try_time > 5:
             break
         await asyncio.sleep(random.uniform(2, 4))

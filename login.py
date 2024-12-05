@@ -113,8 +113,7 @@ async def loginPhone(chromium_path, workList, uid, headless):
     print(f"正在登录 {usernum} 的手机号")
 
     browser = await launch(
-        {
-            "executablePath": chromium_path,
+        {"executablePath": chromium_path,
             "headless": headless,
             "args": (
                 "--no-sandbox",
@@ -122,8 +121,7 @@ async def loginPhone(chromium_path, workList, uid, headless):
                 "--disable-dev-shm-usage",
                 "--disable-gpu",
                 "--disable-software-rasterizer",
-            ),
-        }
+            ),}
     )
     try:
         page = await browser.newPage()

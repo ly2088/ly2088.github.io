@@ -123,7 +123,7 @@ async def loginPhone(chromium_path, workList, uid, headless):
     )
     try:
         page = await browser.newPage()
-        await page.setUserAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36")
+        await page.setUserAgent("Mozilla/5.0 (Linux; Android 15; V2309A Build/AP3A.240905.015.A1) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/96.0.4664.104 Mobile Safari/537.36")
         await page.setViewport({"width": 360, "height": 640})
         await page.goto(
             "https://plogin.m.jd.com/login/login"
@@ -297,7 +297,7 @@ async def loginPassword(chromium_path, workList, uid, headless):
     )
     try:
         page = await browser.newPage()
-        await page.setUserAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36")
+        await page.setUserAgent("Mozilla/5.0 (Linux; Android 15; V2309A Build/AP3A.240905.015.A1) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/96.0.4664.104 Mobile Safari/537.36")
         await page.setViewport({"width": 360, "height": 640})
         await page.goto(
             "https://plogin.m.jd.com/login/login"

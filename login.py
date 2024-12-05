@@ -17,6 +17,7 @@ import numpy as np
 import base64
 import io
 import re
+from faker import Faker
 # 传参获得已初始化的ddddocr实例
 ocr = None
 ocrDet = None
@@ -123,7 +124,9 @@ async def loginPhone(chromium_path, workList, uid, headless):
     )
     try:
         page = await browser.newPage()
-        await page.setUserAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36")
+        random_user_agent = fake.user_agent()
+        await page.setUserAgent(random_user_agent)
+        print(f"浏览器标识--->{random_user_agent}")
         await page.setViewport({"width": 360, "height": 640})
         await page.goto(
             "https://plogin.m.jd.com/login/login"
@@ -297,7 +300,9 @@ async def loginPassword(chromium_path, workList, uid, headless):
     )
     try:
         page = await browser.newPage()
-        await page.setUserAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36")
+        random_user_agent = fake.user_agent()
+        await page.setUserAgent(random_user_agent)
+        print(f"浏览器标识--->{random_user_agent}")
         await page.setViewport({"width": 360, "height": 640})
         await page.goto(
             "https://plogin.m.jd.com/login/login"
@@ -972,6 +977,7 @@ async def main(workList, uid, oocr, oocrDet):
     global ocr, ocrDet
     ocr = oocr
     ocrDet = oocrDet
+    fake = Faker()
 
     async def init_chrome():
         if platform.system() == "Windows":

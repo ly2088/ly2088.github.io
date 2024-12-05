@@ -297,11 +297,11 @@ async def loginPassword(chromium_path, workList, uid, headless):
     )
     try:
         page = await browser.newPage()
-        await page.setUserAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)Chrome/110.0.0.0 Safari/537.36")
-        await page.setViewport({"width": 360, "height": 640})
-        await page.goto(
-            "https://plogin.m.jd.com/login/login"
+        await page.setUserAgent(
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36"
         )
+        await page.setViewport({"width": 360, "height": 640})
+        await page.goto("https://plogin.m.jd.com/login/login")
         await typeuser(page, usernum, passwd)
 
         IN_SMS_TIMES = 0

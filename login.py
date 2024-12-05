@@ -5,6 +5,7 @@
 import os
 from pyppeteer import launch
 import aiohttp
+from faker import Faker
 from urllib import request
 from PIL import Image
 import platform
@@ -17,7 +18,6 @@ import numpy as np
 import base64
 import io
 import re
-from faker import Faker
 # 传参获得已初始化的ddddocr实例
 ocr = None
 ocrDet = None

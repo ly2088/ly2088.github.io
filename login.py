@@ -123,6 +123,7 @@ async def loginPhone(chromium_path, workList, uid, headless):
         }
     )
     try:
+        fake = Faker()
         page = await browser.newPage()
         random_user_agent = fake.user_agent()
         await page.setUserAgent(random_user_agent)
@@ -299,6 +300,7 @@ async def loginPassword(chromium_path, workList, uid, headless):
         }
     )
     try:
+        fake = Faker()
         page = await browser.newPage()
         random_user_agent = fake.user_agent()
         await page.setUserAgent(random_user_agent)
@@ -977,7 +979,6 @@ async def main(workList, uid, oocr, oocrDet):
     global ocr, ocrDet
     ocr = oocr
     ocrDet = oocrDet
-    fake = Faker()
 
     async def init_chrome():
         if platform.system() == "Windows":

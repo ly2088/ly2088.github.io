@@ -57,6 +57,7 @@ async def deleteSession(workList, uid):
         del workList[uid]
 
 async def loginPhone(chromium_path, workList, uid, headless):
+    fake = Faker()
     # 判断账号密码错误
     async def isWrongAccountOrPassword(page, verify=False):
         try:
@@ -123,7 +124,6 @@ async def loginPhone(chromium_path, workList, uid, headless):
         }
     )
     try:
-        fake = Faker()
         page = await browser.newPage()
         random_user_agent = fake.user_agent()
         await page.setUserAgent(random_user_agent)
@@ -220,6 +220,7 @@ async def loginPhone(chromium_path, workList, uid, headless):
     await browser.close()
     return
 async def loginPassword(chromium_path, workList, uid, headless):
+    fake = Faker()
     # 判断账号密码错误
     async def isWrongAccountOrPassword(page, verify=False):
         try:
@@ -300,7 +301,6 @@ async def loginPassword(chromium_path, workList, uid, headless):
         }
     )
     try:
-        fake = Faker()
         page = await browser.newPage()
         random_user_agent = fake.user_agent()
         await page.setUserAgent(random_user_agent)

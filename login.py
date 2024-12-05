@@ -5,7 +5,6 @@
 import os
 from pyppeteer import launch
 import aiohttp
-from faker import Faker
 from urllib import request
 from PIL import Image
 import platform
@@ -57,7 +56,6 @@ async def deleteSession(workList, uid):
         del workList[uid]
 
 async def loginPhone(chromium_path, workList, uid, headless):
-    fake = Faker()
     # 判断账号密码错误
     async def isWrongAccountOrPassword(page, verify=False):
         try:
@@ -125,9 +123,7 @@ async def loginPhone(chromium_path, workList, uid, headless):
     )
     try:
         page = await browser.newPage()
-        random_user_agent = fake.user_agent()
-        await page.setUserAgent(random_user_agent)
-        print(f"浏览器标识--->{random_user_agent}")
+        await page.setUserAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0")
         await page.setViewport({"width": 360, "height": 640})
         await page.goto(
             "https://plogin.m.jd.com/login/login"
@@ -220,7 +216,6 @@ async def loginPhone(chromium_path, workList, uid, headless):
     await browser.close()
     return
 async def loginPassword(chromium_path, workList, uid, headless):
-    fake = Faker()
     # 判断账号密码错误
     async def isWrongAccountOrPassword(page, verify=False):
         try:
@@ -302,9 +297,7 @@ async def loginPassword(chromium_path, workList, uid, headless):
     )
     try:
         page = await browser.newPage()
-        random_user_agent = fake.user_agent()
-        await page.setUserAgent(random_user_agent)
-        print(f"浏览器标识--->{random_user_agent}")
+        await page.setUserAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0")
         await page.setViewport({"width": 360, "height": 640})
         await page.goto(
             "https://plogin.m.jd.com/login/login"

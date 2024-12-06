@@ -12,7 +12,6 @@ import zipfile
 import datetime
 import asyncio
 import random
-from fake_useragent import UserAgent
 import cv2
 import numpy as np
 import base64
@@ -52,9 +51,6 @@ supported_colors = {
 }
 
 async def loginPhone(chromium_path, workList, uid, headless):
-    ua = UserAgent()
-    random_user_agent = ua.random
-    print(f"浏览器标识--->{random_user_agent}")
     # 判断账号密码错误
     async def isWrongAccountOrPassword(page, verify=False):
         try:
@@ -122,7 +118,9 @@ async def loginPhone(chromium_path, workList, uid, headless):
         }
     )
     page = await browser.newPage()
-    await page.setUserAgent(random_user_agent)
+    await page.setUserAgent(
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36"
+    )
     await page.setViewport({"width": 360, "height": 640})
     await page.goto(
         "https://plogin.m.jd.com/login/login"
@@ -231,9 +229,6 @@ async def loginPhone(chromium_path, workList, uid, headless):
     return
 
 async def loginPassword(chromium_path, workList, uid, headless):
-    ua = UserAgent()
-    random_user_agent = ua.random
-    print(f"浏览器标识{random_user_agent}")
     # 判断账号密码错误
     async def isWrongAccountOrPassword(page, verify=False):
         try:
@@ -302,7 +297,9 @@ async def loginPassword(chromium_path, workList, uid, headless):
         }
     )
     page = await browser.newPage()
-    await page.setUserAgent(random_user_agent)
+    await page.setUserAgent(
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36"
+    )
     await page.setViewport({"width": 360, "height": 640})
     await page.goto(
         "https://plogin.m.jd.com/login/login?appid=300&returnurl=https%3A%2F%2Fm.jd.com%2F&source=wq_passport"

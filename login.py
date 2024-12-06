@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 # login.py
-# author: github/svjdck & github.com/icepage/AutoUpdateJdCookie & 小九九 t.me/gdot0
+# author: github/svjdck & github.com/icepage/AutoUpdateJdCookie & 小九九 t.me/gdot0 & zhaozg
 
 import os
 from pyppeteer import launch
 import aiohttp
+from fake_useragent import UserAgent
 from urllib import request
 from PIL import Image
 import platform
@@ -17,15 +18,9 @@ import numpy as np
 import base64
 import io
 import re
-import logging
-
 # 传参获得已初始化的ddddocr实例
 ocr = None
 ocrDet = None
-
-logger = logging.getLogger("login")
-simple_format = "[%(asctime)s][%(levelname)s][%(filename)s:%(lineno)d] %(message)s"
-logging.basicConfig(level=logging.INFO, format=simple_format, datefmt="%Y-%m-%d %H:%M:%S %z")
 
 # 支持的形状类型
 supported_types = [
@@ -50,7 +45,21 @@ supported_colors = {
     "红色": ([0, 50, 50], [10, 255, 255]),
 }
 
+
+async def deleteSessionDelay(workList, uid):
+    s = workList.get(uid, "")
+    if s:
+        await asyncio.sleep(15)
+        del workList[uid]
+async def deleteSession(workList, uid):
+    s = workList.get(uid, "")
+    if s:
+        del workList[uid]
+
 async def loginPhone(chromium_path, workList, uid, headless):
+    ua = UserAgent()
+    random_user_agent = ua.random
+    print(f"浏览器标识--->{random_user_agent}")
     # 判断账号密码错误
     async def isWrongAccountOrPassword(page, verify=False):
         try:
@@ -66,43 +75,42 @@ async def loginPhone(chromium_path, workList, uid, headless):
                     return await isWrongAccountOrPassword(page, verify=True)
             return False
         except Exception as e:
-            logger.info("isWrongAccountOrPassword " + str(e))
+            print("isWrongAccountOrPassword " + str(e))
             return False
 
     # 判断验证码错误
     async def isStillInSMSCodeSentPage(page):
         try:
-            if not await page.querySelector('.getMsg-btn.text-btn.timer.active') and await page.querySelector('#authcode'):
-                return True
-            return False
+            button = await page.querySelector('.getMsg-btn.text-btn.timer.active')
+            if button:
+                return False
+            return await page.querySelector('#authcode')
         except Exception as e:
-            logger.info("isStillInSMSCodeSentPage " + str(e))
+            print("isStillInSMSCodeSentPage " + str(e))
             return False
 
     # 判断验证码超时
     async def needResendSMSCode(page):
         try:
-            if await page.querySelector('.getMsg-btn.text-btn.timer.active'):
-                return True
-            return False
+            return await page.querySelector('.getMsg-btn.text-btn.timer.active');
         except Exception as e:
-            logger.info("needResendSMSCode " + str(e))
+            print("needResendSMSCode " + str(e))
             return False
 
     async def isSendSMSDirectly(page):
         try:
             title = await page.title()
             if title in ['手机语音验证', '手机短信验证']:
-                logger.info('需要' + title)
+                print('需要' + title)
                 return True  
             return False
         except Exception as e:
-            logger.info("isSendSMSDirectly " + str(e))
+            print("isSendSMSDirectly " + str(e))
             return False
 
     usernum = workList[uid].account
     
-    logger.info(f"正在登录 {usernum} 的手机号")
+    print(f"正在登录 {usernum} 的手机号")
 
     browser = await launch(
         {
@@ -117,46 +125,44 @@ async def loginPhone(chromium_path, workList, uid, headless):
             ),
         }
     )
-    page = await browser.newPage()
-    await page.setUserAgent(
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36"
-    )
-    await page.setViewport({"width": 360, "height": 640})
-    await page.goto(
-        "https://plogin.m.jd.com/login/login"
-    )
-    await typephoneuser(page, usernum)
+    try:
+        page = await browser.newPage()
+        await page.setUserAgent(random_user_agent)
+        await page.setViewport({"width": 360, "height": 640})
+        await page.goto(
+            "https://plogin.m.jd.com/login/login"
+        )
+        await typephoneuser(page, usernum)
 
-    IN_SMS_TIMES = 0
-    start_time = datetime.datetime.now()
-    sms_sent = False
-    while True:
-        try:
+        IN_SMS_TIMES = 0
+        start_time = datetime.datetime.now()
+        sms_sent = False
+        while True:
             now_time = datetime.datetime.now()
-            logger.info("循环检测中...")
+            print("循环检测中...")
             if (now_time - start_time).total_seconds() > 70:
-                logger.info("进入超时分支")
+                print("进入超时分支")
                 workList[uid].status = "error"
                 workList[uid].msg = "登录超时"
                 break
 
             elif await page.J("#searchWrapper"):
-                logger.info("进入成功获取cookie分支")
+                print("进入成功获取cookie分支")
                 workList[uid].cookie = await getCookie(page)
                 workList[uid].status = "pass"
                 break
 
             elif await page.xpath('//*[@id="captcha_modal"]'):
-                logger.info("进入安全验证分支")
+                print("进入安全验证分支")
                 if await page.xpath('//*[@id="small_img"]'):
-                    logger.info("进入过滑块分支")
+                    print("进入过滑块分支")
 
                     workList[uid].status = "pending"
                     workList[uid].msg = "正在过滑块检测"
                     await verification(page)
                     await page.waitFor(2000)
                 elif await page.xpath('//*[@id="captcha_modal"]/div/div[3]/button'):
-                    logger.info("进入点形状、颜色验证分支")
+                    print("进入点形状、颜色验证分支")
 
                     workList[uid].status = "pending"
                     workList[uid].msg = "正在过形状、颜色检测"
@@ -165,14 +171,14 @@ async def loginPhone(chromium_path, workList, uid, headless):
                     await page.waitFor(2000)
                 continue
             elif await page.querySelector('.dialog'):
-                logger.info("进入弹出对话框分支")
+                print("进入弹出对话框分支")
                 workList[uid].status = "error"
                 workList[uid].msg = "账号异常，自行检查"
                 break
             if False == sms_sent:
                 button = await page.querySelector('.getMsg-btn.text-btn.timer.active')
                 if button is None:
-                    logger.info("进入直接发短信分支")
+                    print("进入直接发短信分支")
                     if not workList[uid].isAuto:
                         workList[uid].status = "SMS"
                         workList[uid].msg = "需要短信验证"
@@ -182,11 +188,11 @@ async def loginPhone(chromium_path, workList, uid, headless):
                     else:
                         workList[uid].status = "error"
                         workList[uid].msg = "自动续期时不能使用短信验证"
-                        logger.info("自动续期时不能使用短信验证")
+                        print("自动续期时不能使用短信验证")
                         break
             else:
                 if await isStillInSMSCodeSentPage(page):
-                    logger.info("进入验证码错误分支")
+                    print("进入验证码错误分支")
                     IN_SMS_TIMES += 1
                     if IN_SMS_TIMES % 3 == 0:
                         workList[uid].SMS_CODE = None
@@ -195,40 +201,28 @@ async def loginPhone(chromium_path, workList, uid, headless):
                         await typePhoneSMScode(page, workList, uid)
 
                 elif await needResendSMSCode(page):
-                    logger.info("进入验证码超时分支")
+                    print("进入验证码超时分支")
                     workList[uid].status = "error"
                     workList[uid].msg = "验证码超时，请重新开始"
                     break
 
             await asyncio.sleep(1)
-        except Exception as e:
-            logger.info("异常退出")
-            logger.error(e)
-            workList[uid].status = "error"
-            workList[uid].msg = "异常退出"
-            break
+    except Exception as e:
+        workList[uid].msg = "服务器异常退出"
+        workList[uid].status = "error"
+        print("异常退出")
+        print(e)
+        await browser.close()
+        await deleteSessionDelay(workList, uid)
+        raise e
 
-    logger.info("任务完成退出")
-
-    logger.info("任务完成退出")
-    logger.info("开始删除缓存文件......")
-    if os.path.exists("image.png"):
-        os.remove("image.png")
-    if os.path.exists("template.png"):
-        os.remove("template.png")
-    if os.path.exists("shape_image.png"):
-        os.remove("shape_image.png")
-    if os.path.exists("rgba_word_img.png"):
-        os.remove("rgba_word_img.png")
-    if os.path.exists("rgb_word_img.png"):
-        os.remove("rgb_word_img.png")
-    logger.info("缓存文件已删除！")
-    logger.info("开始关闭浏览器....")
+    print("任务完成退出")
     await browser.close()
-    logger.info("浏览器已关闭！")
     return
-
 async def loginPassword(chromium_path, workList, uid, headless):
+    ua = UserAgent()
+    random_user_agent = ua.random
+    print(f"浏览器标识---->{random_user_agent}")
     # 判断账号密码错误
     async def isWrongAccountOrPassword(page, verify=False):
         try:
@@ -244,44 +238,56 @@ async def loginPassword(chromium_path, workList, uid, headless):
                     return await isWrongAccountOrPassword(page, verify=True)
             return False
         except Exception as e:
-            logger.info("isWrongAccountOrPassword " + str(e))
-            return False
-
-        # 判断验证码错误
-    async def isStillInSMSCodeSentPage(page):
-        try:
-            if not await page.querySelector('.getMsg-btn.timer.active') and await page.querySelector('.acc-input.msgCode'):
-                return True
-            return False
-        except Exception as e:
-            logger.info("isStillInSMSCodeSentPage " + str(e))
+            print("isWrongAccountOrPassword " + str(e))
             return False
 
     # 判断验证码超时
-    async def needResendSMSCode(page):
+    async def isStillInSMSCodeSentPage(page):
         try:
-            if await page.querySelector('.getMsg-btn.timer.active'):
-                return True
+            if await page.xpath('//*[@id="header"]/span[2]'):
+                element = await page.xpath('//*[@id="header"]/span[2]')
+                if element:
+                    text = await page.evaluate(
+                        "(element) => element.textContent", element[0]
+                    )
+                    if text == "手机短信验证":
+                        return True
             return False
         except Exception as e:
-            logger.info("needResendSMSCode " + str(e))
+            print("isStillInSMSCodeSentPage " + str(e))
+            return False
+
+    # 判断验证码错误
+    async def needResendSMSCode(page):
+        try:
+            if await page.xpath('//*[@id="app"]/div/div[2]/div[2]/button'):
+                element = await page.xpath('//*[@id="app"]/div/div[2]/div[2]/button')
+                if element:
+                    text = await page.evaluate(
+                        "(element) => element.textContent", element[0]
+                    )
+                    if text == "获取验证码":
+                        return True
+            return False
+        except Exception as e:
+            print("needResendSMSCode " + str(e))
             return False
 
     async def isSendSMSDirectly(page):
         try:
             title = await page.title()
             if title in ['手机语音验证', '手机短信验证']:
-                logger.info('需要' + title)
-                return True
+                print('需要' + title)
+                return True  
             return False
         except Exception as e:
-            logger.info("isSendSMSDirectly " + str(e))
+            print("isSendSMSDirectly " + str(e))
             return False
 
     usernum = workList[uid].account
     passwd = workList[uid].password
     sms_sent = False
-    logger.info(f"正在登录 {usernum} 的账号")
+    print(f"正在登录 {usernum} 的账号")
 
     browser = await launch(
         {
@@ -296,146 +302,73 @@ async def loginPassword(chromium_path, workList, uid, headless):
             ),
         }
     )
-    page = await browser.newPage()
-    await page.setUserAgent(
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36"
-    )
-    await page.setViewport({"width": 360, "height": 640})
-    await page.goto(
-        "https://plogin.m.jd.com/login/login?appid=300&returnurl=https%3A%2F%2Fm.jd.com%2F&source=wq_passport"
-    )
-    await typeuser(page, usernum, passwd)
+    try:
+        page = await browser.newPage()
+        await page.setUserAgent(random_user_agent)
+        await page.setViewport({"width": 360, "height": 640})
+        await page.goto(
+            "https://plogin.m.jd.com/login/login"
+        )
+        await typeuser(page, usernum, passwd)
 
-    IN_SMS_TIMES = 0
-    start_time = datetime.datetime.now()
+        IN_SMS_TIMES = 0
+        start_time = datetime.datetime.now()
 
-    while True:
-        try:
+        while True:
             now_time = datetime.datetime.now()
-            logger.info("循环检测中...")
-            if (now_time - start_time).total_seconds() > 120:
-                logger.info("进入超时分支")
+            print("循环检测中...")
+            if (now_time - start_time).total_seconds() > 70:
+                print("进入超时分支")
                 workList[uid].status = "error"
                 workList[uid].msg = "登录超时"
-                logger.info("超时了，正在保存当前页面信息......")
-                dateTime = datetime.datetime.now()
-                logger.info(f"页面截图保存到： {usernum}-screenshot-{dateTime}.png")
-                await page.screenshot({'path': f"{usernum}-screenshot-{dateTime}.png"})
-                logger.info(f"页面HTML保存到： {usernum}-html-{dateTime}.html")
-                content = await page.content()
-                with open(f"{usernum}-html-{dateTime}.html", 'w', encoding='utf-8') as f:
-                    f.write(content)
                 break
 
             elif await page.J("#searchWrapper"):
-                logger.info("进入成功获取cookie分支")
+                print("进入成功获取cookie分支")
                 workList[uid].cookie = await getCookie(page)
                 workList[uid].status = "pass"
                 break
 
             elif await isWrongAccountOrPassword(page):
-                logger.info("进入账号密码不正确分支")
+                print("进入账号密码不正确分支")
 
                 workList[uid].status = "error"
                 workList[uid].msg = "账号或密码不正确"
                 break
-
             elif await page.xpath('//*[@id="captcha_modal"]'):
-                logger.info("进入安全验证分支")
+                print("进入安全验证分支")
                 if await page.xpath('//*[@id="small_img"]'):
-                    logger.info("进入过滑块分支")
+                    print("进入过滑块分支")
 
                     workList[uid].status = "pending"
                     workList[uid].msg = "正在过滑块检测"
                     await verification(page)
                     await page.waitFor(3000)
-
                 elif await page.xpath('//*[@id="captcha_modal"]/div/div[3]/button'):
-                    logger.info("进入点形状、颜色验证分支")
+                    print("进入点形状、颜色验证分支")
+                    
                     workList[uid].status = "pending"
                     workList[uid].msg = "正在过形状、颜色检测"
                     if await verification_shape(page) == "notSupport":
-                        logger.info("即将重启浏览器重试")
+                        print("即将重启浏览器重试")
                         await browser.close()
                         return "notSupport"
                     await page.waitFor(3000)
-
-                elif await page.J('.drag-content'):
-                    logger.info("进入旋转图片分支")
-                    logger.info("正在保存当前页面信息......")
-                    dateTime = datetime.datetime.now()
-                    logger.info(f"页面截图保存到： drag_{usernum}-screenshot-{dateTime}.png")
-                    await page.screenshot({'path': f"drag_{usernum}-screenshot-{dateTime}.png"})
-                    logger.info("即将重启浏览器重试")
-                    await browser.close()
-                    return "notSupport"
-
-            elif await page.J('.alert-body #alertMsg'):
-                logger.info("进入弹框分支")
-                element = await page.J('.alert-body #alertMsg')
-                if element:
-                    alertMsg = await page.evaluate(
-                        "(element) => element.textContent", element
-                    )
-                    logger.info(f"弹框内容为: {alertMsg}")
-                    if alertMsg == "发送短信验证码过于频繁，请稍后再试":
-                        workList[uid].status = "error"
-                        workList[uid].msg = "发送短信验证码过于频繁，请稍后再试"
-                        break
-                    elif alertMsg == "身份证号输入错误,若包含字母X,请输入大写字母":
-                        logger.info("进入身份证号错误分支")
-                        workList[uid].ID_CARD = None
-                        workList[uid].status = "wrongIDCard"
-                        workList[uid].msg = "身份证号输入错误,若包含字母X,请输入大写字母"
-                        await page.click('.alert-sure')
-                        await page.waitFor(random.randint(100, 2000))
-                        input_elements = await page.JJ('.input-container.id-wrap > div')
-                        await input_elements[5].click()
-                        for i in range(6):
-                            await page.keyboard.press('Backspace')
-                            await page.waitFor(random.randint(100, 2000))
-                        await page.waitFor(3000)
-                        await typeIDCard(page, workList, uid)
-                        if workList[uid].status == "error":
-                            logger.info("输入身份证超时")
-                            break
-                    elif alertMsg == "您已超过当日请求上限，请明天再试":
-                        workList[uid].status = "error"
-                        workList[uid].msg = "您已超过当日请求上限，请明天再试"
-                        break
-                    elif alertMsg == "验证码错误多次，请重新获取":
-                        workList[uid].status = "error"
-                        workList[uid].msg = "验证码错误多次，请重新获取"
-                        break
-
-
-            # 需要身份证验证
-            if await page.J(".sub-title") and await page.J('.icon-default.icon-userid'):
-                logger.info("进入身份证号验证分支")
-                if not workList[uid].isAuto:
-                    await page.click(".icon-default.icon-userid")
-                    workList[uid].status = "IDCard"
-                    workList[uid].msg = "存在安全风险，请输入身份证号码的前两位和后四位验证身份"
-                    await page.waitFor(3000)
-                    await typeIDCard(page, workList, uid)
-                    if workList[uid].status == "error":
-                        logger.info("输入身份证超时")
-                        break
-                else:
-                    workList[uid].status = "error"
-                    workList[uid].msg = "自动续期时不能使用身份证号验证"
-                    logger.info("自动续期时不能使用身份证号验证")
-                    break
-
+            elif await page.querySelector('.dialog'):
+                print("进入弹出对话框分支")
+                workList[uid].status = "error"
+                workList[uid].msg = "账号异常，自行检查"
+                break
             if not sms_sent:
-                if await page.J(".sub-title") and not await page.J('.icon-default.icon-userid'):
-                    logger.info("进入选择短信验证分支")
+
+                if await page.J(".sub-title"):
+                    print("进入选择短信验证分支")
                     if not workList[uid].isAuto:
                         workList[uid].status = "SMS"
                         workList[uid].msg = "需要短信验证"
 
                         if await sendSMS(page) == "notSupport":
-                            logger.info("即将重启浏览器重试")
+                            print("即将重启浏览器重试")
                             await browser.close()
                             return "notSupport"
                         await page.waitFor(3000)
@@ -445,16 +378,16 @@ async def loginPassword(chromium_path, workList, uid, headless):
                     else:
                         workList[uid].status = "error"
                         workList[uid].msg = "自动续期时不能使用短信验证"
-                        logger.info("自动续期时不能使用短信验证")
+                        print("自动续期时不能使用短信验证")
                         break
                 elif await isSendSMSDirectly(page):
-                    logger.info("进入直接发短信分支")
+                    print("进入直接发短信分支")
 
                     if not workList[uid].isAuto:
                         workList[uid].status = "SMS"
                         workList[uid].msg = "需要短信验证"
                         if await sendSMSDirectly(page) == "notSupport":
-                            logger.info("即将重启浏览器重试")
+                            print("即将重启浏览器重试")
                             await browser.close()
                             return "notSupport"
                         await page.waitFor(3000)
@@ -464,11 +397,11 @@ async def loginPassword(chromium_path, workList, uid, headless):
                     else:
                         workList[uid].status = "error"
                         workList[uid].msg = "自动续期时不能使用短信验证"
-                        logger.info("自动续期时不能使用短信验证")
+                        print("自动续期时不能使用短信验证")
                         break
             else:
                 if await isStillInSMSCodeSentPage(page):
-                    logger.info("进入验证码错误分支")
+                    print("进入验证码错误分支")
                     IN_SMS_TIMES += 1
                     if IN_SMS_TIMES % 3 == 0:
                         workList[uid].SMS_CODE = None
@@ -477,68 +410,23 @@ async def loginPassword(chromium_path, workList, uid, headless):
                         await typeSMScode(page, workList, uid)
 
                 elif await needResendSMSCode(page):
-                    logger.info("进入验证码超时分支")
+                    print("进入验证码超时分支")
                     workList[uid].status = "error"
                     workList[uid].msg = "验证码超时，请重新开始"
                     break
 
             await asyncio.sleep(1)
-        except Exception as e:
-            logger.info("异常退出")
-            logger.error(e)
-            workList[uid].status = "error"
-            workList[uid].msg = "异常退出"
-            break
+    except Exception as e:
+        print("异常退出")
+        print(e)
+        await browser.close()
+        await deleteSessionDelay(workList, uid)
+        raise e
+        
+    print("任务完成退出")
 
-    logger.info("任务完成退出")
-    logger.info("开始删除缓存文件......")
-    if os.path.exists("image.png"):
-        os.remove("image.png")
-    if os.path.exists("template.png"):
-        os.remove("template.png")
-    if os.path.exists("shape_image.png"):
-        os.remove("shape_image.png")
-    if os.path.exists("rgba_word_img.png"):
-        os.remove("rgba_word_img.png")
-    if os.path.exists("rgb_word_img.png"):
-        os.remove("rgb_word_img.png")
-    logger.info("缓存文件已删除！")
-    logger.info("开始关闭浏览器....")
     await browser.close()
-    logger.info("浏览器已关闭！")
     return
-
-async def typeIDCard(page, workList, uid):
-    logger.info("开始输入身份证")
-
-    async def get_verification_IDCard(workList, uid):
-        logger.info("开始从全局变量获取身份证")
-        retry = 60
-        while not workList[uid].ID_CARD and not retry < 0:
-            await asyncio.sleep(1)
-            retry -= 1
-        if retry < 0:
-            workList[uid].status = "error"
-            workList[uid].msg = "输入身份证超时"
-            return
-
-        workList[uid].status = "pending"
-        return workList[uid].ID_CARD
-
-    ID_CARD = await get_verification_IDCard(workList, uid)
-    if not ID_CARD:
-        return
-
-    workList[uid].status = "pending"
-    workList[uid].msg = "正在通过身份证验证"
-    logger.info("正在输入身份证。。。。。")
-    input_elements = await page.JJ('.input-container.id-wrap > div')
-    await input_elements[0].click()
-    for ID in ID_CARD:
-        await page.keyboard.type(str(ID))
-        await page.waitFor(random.randint(100, 2000))
-    await page.click(".btn.J_ping")
-    await page.waitFor(3000)
 
 async def typephoneuser(page, usernum):
     await page.waitFor(random.randint(200, 500))
@@ -553,22 +441,21 @@ async def typephoneuser(page, usernum):
     await page.waitFor(random.randint(200, 500))
     await page.click(".getMsg-btn.text-btn.timer")
     await page.waitFor(random.randint(500, 1000))
-
 async def typeuser(page, usernum, passwd):
-    logger.info("开始输入账号密码")
+    print("开始输入账号密码")
     await page.waitForSelector(".J_ping.planBLogin")
     await page.click(".J_ping.planBLogin")
     await page.type(
-        "#username", usernum, {"delay": random.randint(60, 121)}
+        "#username", usernum, {"delay": random.randint(10, 20)}
     )
     await page.type(
-        "#pwd", passwd, {"delay": random.randint(100, 151)}
+        "#pwd", passwd, {"delay": random.randint(10, 20)}
     )
-    await page.waitFor(random.randint(100, 2000))
+    await page.waitFor(random.randint(200, 500))
     await page.click(".policy_tip-checkbox")
-    await page.waitFor(random.randint(100, 2000))
+    await page.waitFor(random.randint(200, 500))
     await page.click(".btn.J_ping.btn-active")
-    await page.waitFor(random.randint(100, 2000))
+    await page.waitFor(random.randint(500, 1000))
 
 
 async def sendSMSDirectly(page):
@@ -584,7 +471,7 @@ async def sendSMSDirectly(page):
         await page.waitFor(3000)
 
     await preSendSMS(page)
-    logger.info("开始发送验证码")
+    print("开始发送验证码")
 
     try:
         while True:
@@ -606,7 +493,7 @@ async def sendSMSDirectly(page):
 
 async def sendSMS(page):
     async def preSendSMS(page):
-        logger.info("进行发送验证码前置操作")
+        print("进行发送验证码前置操作")
         await page.waitForXPath(
             '//*[@id="app"]/div/div[2]/div[2]/span/a'
         )
@@ -626,7 +513,7 @@ async def sendSMS(page):
         await page.waitFor(3000)
 
     await preSendSMS(page)
-    logger.info("开始发送验证码")
+    print("开始发送验证码")
 
     try:
         while True:
@@ -646,10 +533,10 @@ async def sendSMS(page):
         raise e
 
 async def typePhoneSMScode(page, workList, uid):
-    logger.info("开始输入验证码")
+    print("开始输入验证码")
 
     async def get_verification_code(workList, uid):
-        logger.info("开始从全局变量获取验证码")
+        print("开始从全局变量获取验证码")
         retry = 60
         while not workList[uid].SMS_CODE and not retry < 0:
             await asyncio.sleep(1)
@@ -674,11 +561,13 @@ async def typePhoneSMScode(page, workList, uid):
     await button.click()
     await page.waitFor(random.randint(2, 3) * 1000)
 
+
+
 async def typeSMScode(page, workList, uid):
-    logger.info("开始输入验证码")
+    print("开始输入验证码")
 
     async def get_verification_code(workList, uid):
-        logger.info("开始从全局变量获取验证码")
+        print("开始从全局变量获取验证码")
         retry = 60
         while not workList[uid].SMS_CODE and not retry < 0:
             await asyncio.sleep(1)
@@ -690,7 +579,6 @@ async def typeSMScode(page, workList, uid):
 
         workList[uid].status = "pending"
         return workList[uid].SMS_CODE
-
     await page.waitForXPath('//*[@id="app"]/div/div[2]/div[2]/div/input')
     code = await get_verification_code(workList, uid)
     if not code:
@@ -704,13 +592,13 @@ async def typeSMScode(page, workList, uid):
         if input_elements:
             input_value = await input_elements[0].getProperty("value")
             if input_value:
-                logger.info("清除验证码输入框中已有的验证码")
+                print("清除验证码输入框中已有的验证码")
                 await page.evaluate(
                     '(element) => element.value = ""', input_elements[0]
                 )
 
     except Exception as e:
-        logger.info("typeSMScode" + str(e))
+        print("typeSMScode" + str(e))
 
     await input_elements[0].type(code)
     await page.waitForXPath('//*[@id="app"]/div/div[2]/a[1]')
@@ -721,7 +609,7 @@ async def typeSMScode(page, workList, uid):
 
 
 async def verification(page):
-    logger.info("开始过滑块")
+    print("开始过滑块")
 
     async def get_distance():
         img = cv2.imread("image.png", 0)
@@ -786,11 +674,11 @@ async def verification(page):
         box["x"] + distance, box["y"], {"steps": 10}
     )
     await page.mouse.up()
-    logger.info("过滑块结束")
+    print("过滑块结束")
 
 
 async def verification_shape(page):
-    logger.info("开始过颜色、形状验证")
+    print("开始过颜色、形状验证")
 
     def get_shape_location_by_type(img_path, type: str):
         def sort_rectangle_vertices(vertices):
@@ -896,9 +784,7 @@ async def verification_shape(page):
 
     # 文字点选的重试次数，超过将重启浏览器
     retry_count = 10
-    i = 5
-    while i > 0:
-        i -= 1
+    for i in range(5):
         await page.waitForSelector("div.captcha_footer img")
         image_src = await page.Jeval(
             "#cpc_img", 'el => el.getAttribute("src")'
@@ -931,7 +817,7 @@ async def verification_shape(page):
         if button is None:
             button = await page.querySelector(".sure_btn")
         if button is None:
-            logger.info("未找到提交按钮")
+            print("未找到提交按钮")
             raise "未找到提交按钮"
         refresh_button = await page.querySelector("div.captcha_header img.jcap_refresh")
         if refresh_button is None:
@@ -943,14 +829,14 @@ async def verification_shape(page):
         if word.find("色") > 0:
             target_color = word.split("请选出图中")[1].split("的图形")[0]
             if target_color in supported_colors:
-                logger.info(f"正在找{target_color}")
+                print(f"正在找{target_color}")
                 center_x, center_y = get_shape_location_by_color(
                     "shape_image.png", target_color
                 )
                 if center_x is None and center_y is None:
-                    logger.info("识别失败，刷新")
+                    print("识别失败，刷新")
                     if refresh_button is None:
-                        logger.info("未找到刷新按钮")
+                        print("未找到刷新按钮")
                         raise "未找到刷新按钮"
                     await refresh_button.click()
                     await asyncio.sleep(random.uniform(2, 4))
@@ -962,23 +848,23 @@ async def verification_shape(page):
                 await asyncio.sleep(random.uniform(0.3, 1))
                 break
             else:
-                logger.info(f"不支持{target_color}，重试")
+                print(f"不支持{target_color}，重试")
                 if refresh_button is None:
-                    logger.info("未找到刷新按钮")
+                    print("未找到刷新按钮")
                     raise "未找到刷新按钮"
                 await refresh_button.click()
                 await asyncio.sleep(random.uniform(2, 4))
                 break
         elif word.find("依次") > 0:
             if retry_count < 1:
-                logger.info("文字点选重试失败")
+                print("文字点选重试失败")
                 return "notSupport"
             i = 3
-            logger.info("进入文字点选")
-            logger.info(f"文字点选第{11 - retry_count}次尝试")
+            print("进入文字点选")
+            print(f"文字点选第{11 - retry_count}次尝试")
             retry_count -= 1
             target_word = word.replace("\"", "")[-4:]
-            logger.info(f"点选字为： {target_word}")
+            print(f"点选字为： {target_word}")
             gray_img = get_gray_img("shape_image.png")
             xy_list = ocrDet.detection(gray_img)
             src_img = Image.open("shape_image.png")
@@ -990,7 +876,7 @@ async def verification_shape(page):
                 result_word = ocr.classification(corp, png_fix=True)
                 words.append(result_word)
             result = dict(zip(words, xy_list))
-            logger.info(f"result: {result}")
+            print(f"result: {result}")
             img_xy = {}
             for key, xy in result.items():
                 img_xy[key] = (int((xy[0] + xy[2]) / 2), int((xy[1] + xy[3]) / 2))
@@ -998,9 +884,9 @@ async def verification_shape(page):
             click_points = {}
             for wd in target_word:
                 if wd not in img_xy:
-                    logger.info(f"\"{wd}\"未找到，识别失败,刷新")
+                    print(f"\"{wd}\"未找到，识别失败,刷新")
                     if refresh_button is None:
-                        logger.info("未找到刷新按钮")
+                        print("未找到刷新按钮")
                         raise "未找到刷新按钮"
                     await refresh_button.click()
                     await asyncio.sleep(random.uniform(2, 4))
@@ -1009,14 +895,14 @@ async def verification_shape(page):
                 center_x, center_y = img_xy[wd]
                 click_x, click_y = image_top_left_x + center_x, image_top_left_y + center_y
                 click_points[wd] = [click_x, click_y]
-            logger.info(click_points)
+            print(click_points)
             if os.path.exists("gray.png"):
                 os.remove("gray.png")
             if not_found:
                 continue
-            logger.info("文字点选识别正常")
+            print("文字点选识别正常")
             for wd, point in click_points.items():
-                logger.info(f"点击\"{wd}\",坐标{point[0]}:{point[1]}")
+                print(f"点击\"{wd}\",坐标{point[0]}:{point[1]}")
                 await page.mouse.click(point[0], point[1])
                 await asyncio.sleep(random.uniform(0.5, 2))
             await button.click()
@@ -1025,16 +911,16 @@ async def verification_shape(page):
         else:
             shape_type = word.split("请选出图中的")[1]
             if shape_type in supported_types:
-                logger.info(f"正在找{shape_type}")
+                print(f"正在找{shape_type}")
                 if shape_type == "圆环":
                     shape_type = shape_type.replace("圆环", "圆形")
                 center_x, center_y = get_shape_location_by_type(
                     "shape_image.png", shape_type
                 )
                 if center_x is None and center_y is None:
-                    logger.info(f"识别失败,刷新")
+                    print(f"识别失败,刷新")
                     if refresh_button is None:
-                        logger.info("未找到刷新按钮")
+                        print("未找到刷新按钮")
                         raise "未找到刷新按钮"
                     await refresh_button.click()
                     await asyncio.sleep(random.uniform(2, 4))
@@ -1046,14 +932,14 @@ async def verification_shape(page):
                 await asyncio.sleep(random.uniform(0.3, 1))
                 break
             else:
-                logger.info(f"不支持{shape_type},刷新中......")
+                print(f"不支持{shape_type},刷新中......")
                 if refresh_button is None:
-                    logger.info("未找到刷新按钮")
+                    print("未找到刷新按钮")
                     raise "未找到刷新按钮"
                 await refresh_button.click()
                 await asyncio.sleep(random.uniform(2, 4))
                 continue
-    logger.info("过图形结束")
+    print("过图形结束")
 
 
 async def getCookie(page):
@@ -1066,7 +952,7 @@ async def getCookie(page):
         elif cookie["name"] == "pt_pin":
             pt_pin = cookie["value"]
     ck = f"pt_key={pt_key};pt_pin={pt_pin};"
-    logger.info(f"登录成功 {ck}")
+    print(f"登录成功 {ck}")
     return ck
 
 
@@ -1085,8 +971,8 @@ async def download_file(url, file_path):
                     file.write(chunk)
                     downloaded_size += len(chunk)
                     progress = (downloaded_size / file_size) * 100
-                    logger.info(f"已下载{progress:.2f}%...", end="\r")
-    logger.info("下载完成，进行解压安装....")
+                    print(f"已下载{progress:.2f}%...", end="\r")
+    print("下载完成，进行解压安装....")
 
 
 async def main(workList, uid, oocr, oocrDet):
@@ -1121,7 +1007,7 @@ async def main(workList, uid, oocr, oocrDet):
             if os.path.exists(chrome_exe):
                 return chrome_exe
             else:
-                logger.info("貌似第一次使用，未找到chrome，正在下载chrome浏览器....")
+                print("貌似第一次使用，未找到chrome，正在下载chrome浏览器....")
 
                 chromeurl = "https://mirrors.huaweicloud.com/chromium-browser-snapshots/Win_x64/588429/chrome-win32.zip"
                 target_file = "chrome-win.zip"
@@ -1133,7 +1019,7 @@ async def main(workList, uid, oocr, oocrDet):
                     source_item = os.path.join(chmod_dir, item)
                     destination_item = os.path.join(chrome_dir, item)
                     os.rename(source_item, destination_item)
-                logger.info("解压安装完成")
+                print("解压安装完成")
                 await asyncio.sleep(1)
                 return chrome_exe
 
@@ -1147,11 +1033,11 @@ async def main(workList, uid, oocr, oocrDet):
             if os.path.isfile(chrome_path):
                 return chrome_path
             else:
-                logger.info("貌似第一次使用，未找到chrome，正在下载chrome浏览器....")
-                logger.info("文件位于github，请耐心等待，如遇到网络问题可到项目地址手动下载")
+                print("貌似第一次使用，未找到chrome，正在下载chrome浏览器....")
+                print("文件位于github，请耐心等待，如遇到网络问题可到项目地址手动下载")
                 download_url = "https://mirrors.huaweicloud.com/chromium-browser-snapshots/Linux_x64/884014/chrome-linux.zip"
                 if 'arm' in platform.machine():
-                    download_url = "https://playwright.azureedge.net/builds/chromium/1088/chromium-linux-arm64.zip"
+                    download_url = "https://playwright.azureedge.net/builds/chromium/1088/chromium-linux-arm64.zip";
                 if not os.path.exists(download_path):
                     os.makedirs(download_path, exist_ok=True)
                 target_file = os.path.join(
@@ -1167,24 +1053,35 @@ async def main(workList, uid, oocr, oocrDet):
             return "mac"
         else:
             return "unknown"
-
-    logger.info("初始化浏览器。。。。。")
+    print("判断初始化浏览器")
     chromium_path = await init_chrome()
     headless = 'new'
-    logger.info("进入选择登录方式流程")
-
+    #headless = False
+    print("选择登录")
+    
     try_time = 1
     while True:
         if workList[uid].type == "phone":
-            logger.info("选择手机号登录")
+            print("选择手机号登录")
             result = await loginPhone(chromium_path, workList, uid, headless)
         elif workList[uid].type == "password":
-            logger.info("选择密码登录")
+            print("选择密码登录")
             result = await loginPassword(chromium_path, workList, uid, headless)
         if result != "notSupport" or try_time > 5:
             break
         await asyncio.sleep(random.uniform(2, 4))
-        logger.info(f"进行第{try_time}次重试")
+        print(f"进行第{try_time}次重试")
         try_time += 1
-    logger.info("登录完成")
+    if os.path.exists("image.png"):
+        os.remove("image.png")
+    if os.path.exists("template.png"):
+        os.remove("template.png")
+    if os.path.exists("shape_image.png"):
+        os.remove("shape_image.png")
+    if os.path.exists("rgba_word_img.png"):
+        os.remove("rgba_word_img.png")
+    if os.path.exists("rgb_word_img.png"):
+        os.remove("rgb_word_img.png")
+    await deleteSessionDelay(workList, uid)
+    print("登录完成")
     await asyncio.sleep(10)
